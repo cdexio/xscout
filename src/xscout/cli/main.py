@@ -179,5 +179,13 @@ def accounts_remove(username: str) -> None:
     click.echo("removed" if removed else "not found")
 
 
+def _register_dev_commands() -> None:
+    from xscout.cli.xdev import x
+
+    cli.add_command(x)
+
+
+_register_dev_commands()
+
 if __name__ == "__main__":
     cli()

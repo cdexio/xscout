@@ -10,7 +10,7 @@ implemented, following its plan. Design:
 |---|---|---|---|
 | 0 | [Live verification](phase-0-live-verification.md) — **done 2026-09-26**, see [report](phase-0-report.md) | — | every `[U]` in spec §2 answered or left open with a fallback; fixtures recorded |
 | 1 | [Foundation](phase-1-foundation.md) — **built 2026-09-26**, see [report](phase-1-report.md) | 0 | accounts added encrypted and listed; DB migrated |
-| 2 | [xweb + transport](phase-2-xweb-transport.md) | 1 | CLI searches, fetches a profile and a user's tweets with one account |
+| 2 | [xweb + transport](phase-2-xweb-transport.md) — **built 2026-09-26**, see [report](phase-2-report.md) | 1 | CLI searches, fetches a profile and a user's tweets with one account |
 | 3 | [Pool + gateway](phase-3-pool-gateway.md) | 2 | pool/budget tests pass; live load spreads evenly over all accounts |
 | 4 | [HTTP API (on-demand)](phase-4-http-api.md) | 3 | bots can call it; 503 with retry_after works |
 | 5 | [Watchlist + feed](phase-5-watchlist-feed.md) | 4 | tier-1 KOL tweets reach the feed within interval + 1 min |
