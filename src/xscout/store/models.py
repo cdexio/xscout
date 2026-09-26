@@ -177,8 +177,11 @@ class FeedEntry(Base):
 
     seq: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=True)
     tweet_id: Mapped[int] = mapped_column(BigInteger, nullable=False)
-    watch_item_id: Mapped[int] = mapped_column(ForeignKey("watch_items.id", ondelete="CASCADE"), nullable=False)
+    watch_item_id: Mapped[int] = mapped_column(
+        ForeignKey("watch_items.id", ondelete="CASCADE"), nullable=False, index=True
+    )
     tags: Mapped[list[str]] = mapped_column(ARRAY(Text), nullable=False, default=list)
+    payload: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict)
     created_at: Mapped[datetime] = _now()
 
 

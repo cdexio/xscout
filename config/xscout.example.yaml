@@ -40,7 +40,7 @@ cache:
 gateway:
   max_attempts: 3           # accounts tried per page before giving up
   max_wait_sec_p0: 8.0      # on-demand requests may wait this long for a free account
-  max_wait_sec_p1: 0.0
+  max_wait_sec_p1: 5.0
   network_backoff_sec: 1.0
   transient_cooldown_sec: 30
   tid_missing_cooldown_sec: 300
@@ -55,6 +55,11 @@ api:
 watch:
   max_query_chars: 500      # X rejects search queries over 512 characters
   max_pages_per_poll: 5
+  min_interval_sec: 30
+  max_interval_sec: 86400
+  tick_sec: 1.0
+  max_concurrent_polls: 4
+  reload_sec: 30.0
 
 retention:
   tweets_days: 90

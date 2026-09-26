@@ -68,6 +68,26 @@ Errors: `{"error": {"code", "message", "retry_after_sec"?}}` with `400`
 (invalid input), `404` (unknown user), `503` + `Retry-After` (no quota right
 now). Treat `503` as "no X data for now", never as a signal.
 
+### Watchlist and feed
+
+Instead of asking X repeatedly, register what you want watched; one scheduled
+poll serves every bot, and bots read new tweets from the local feed.
+
+| Endpoint | Purpose |
+|---|---|
+| `POST /v1/watchlist` `{"kind": "user"\|"query", "value", "interval_sec", "tags": []}` | Watch a user or a search query (interval 30 s – 24 h). The same value from two bots is merged (shortest interval, tags and consumers united). `201` created, `200` merged, `409 over_capacity` with needed vs available. |
+| `GET /v1/watchlist?mine=true&tag=` | List items |
+| `GET /v1/watchlist/capacity` | Projected requests per 15 min vs the watchlist share |
+| `PATCH /v1/watchlist/{id}` `{"interval_sec"?, "tags"?, "enabled"?}` | Change an item |
+| `DELETE /v1/watchlist/{id}` | Remove your interest; the item is deleted when no bot uses it |
+| `GET /v1/feed?tags=a,b&since=<seq>&limit=&wait_sec=` | New watched tweets after `since`, oldest first, with `next_since`; `wait_sec` (≤ 30) long-polls |
+
+Feed pattern: keep the last `next_since`, call
+`/v1/feed?tags=<yours>&since=<it>&wait_sec=30` in a loop. Each entry has
+`seq`, `tags`, `watch_item_id` and the normalized `tweet`. On the first poll of
+an item only tweets from about one interval before it was created are sent,
+not the account's history.
+
 Etiquette that keeps everyone under the limits:
 
 - Pass `max_age_sec` as large as your strategy allows; identical queries from

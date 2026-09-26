@@ -13,12 +13,14 @@ import time
 from collections.abc import Callable
 from datetime import UTC, datetime
 
+from xscout.api.watch import WatchService
 from xscout.cache.cache import ResultCache
 from xscout.config import Settings
 from xscout.crypto import SecretBox
 from xscout.gateway.gateway import Gateway
 from xscout.pool.budget import Budget
 from xscout.pool.pool import AccountPool, AccountState
+from xscout.scheduler.scheduler import FeedSignal, WatchScheduler
 from xscout.store.accounts import AccountCredentials, AccountRepository
 from xscout.store.db import make_engine, make_sessionmaker
 from xscout.store.models import AccountStatus
@@ -26,6 +28,8 @@ from xscout.store.operations import OperationRepository
 from xscout.store.rate_state import RateStateRepository
 from xscout.store.request_log import RequestLogRepository, RequestLogRow
 from xscout.store.samples import SampleRepository
+from xscout.store.tweets import TweetRepository
+from xscout.store.watch import FeedRepository, WatchRepository
 from xscout.transport.session import AccountTransport
 from xscout.xweb.client import AccountClient
 from xscout.xweb.pages import fetch_text
@@ -67,10 +71,25 @@ class Runtime:
         self._tasks: list[asyncio.Task] = []
         self._side_tasks: set[asyncio.Task] = set()
         self.gateway = Gateway(self.t, self.pool, self.budget, self.cache, self.clients.get, events=self, clock=clock)
+        self.tweets = TweetRepository(self.sessions)
+        self.watches = WatchRepository(self.sessions)
+        self.feed = FeedRepository(self.sessions)
+        self.feed_signal = FeedSignal()
+        self.scheduler = WatchScheduler(
+            self.gateway, self.watches, self.feed, self.tweets.upsert, self.t, self.feed_signal, clock
+        )
+        self.watch_service = WatchService(
+            self.watches,
+            self.feed,
+            self.feed_signal,
+            self.t,
+            window_capacity=lambda: self.pool.window_capacity("SearchTimeline"),
+            on_change=self.scheduler.mark_dirty,
+        )
 
     # MARK: lifecycle
 
-    async def start(self, background: bool = True) -> None:
+    async def start(self, background: bool = True, scheduler: bool = True) -> None:
         await self.registry.load()
         stored = await self.rate_repo.load()
         await self.sync_accounts()
@@ -86,6 +105,8 @@ class Runtime:
                 asyncio.create_task(self._loop(self.sync_accounts, ACCOUNT_SYNC_SEC)),
                 asyncio.create_task(self._loop(self._scheduled_refresh, self.t.intervals.registry_refresh_sec)),
             ]
+            if scheduler:
+                self._tasks.append(asyncio.create_task(self.scheduler.run_forever()))
         counts = {"accounts": len(self.pool.accounts), "clients": len(self.clients)}
         log.info("runtime started", extra={"fields": counts})
 
@@ -95,6 +116,7 @@ class Runtime:
         for task in self._tasks:
             with contextlib.suppress(asyncio.CancelledError):
                 await task
+        await self.scheduler.drain()
         if self._side_tasks:
             await asyncio.gather(*self._side_tasks, return_exceptions=True)
         await self.flush()
@@ -140,6 +162,7 @@ class Runtime:
             "capacity": {op: self.pool.capacity(op) for op in CORE_OPS},
             "cache": self.cache.stats(),
             "gateway": dict(self.gateway.stats),
+            "scheduler": {**self.scheduler.stats, "units": len(self.scheduler.units)},
         }
 
     def accounts_report(self) -> list[dict]:

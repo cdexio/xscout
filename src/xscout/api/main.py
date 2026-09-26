@@ -11,17 +11,15 @@ from xscout.api.app import Backend, create_app
 from xscout.api.service import XService
 from xscout.config import get_settings
 from xscout.gateway.runtime import Runtime
-from xscout.store.tweets import TweetRepository
 
 
 @asynccontextmanager
 async def open_runtime_backend() -> AsyncIterator[Backend]:
     runtime = Runtime(get_settings())
     await runtime.start()
-    tweets = TweetRepository(runtime.sessions)
-    service = XService(runtime.gateway, runtime.t, archive=tweets.upsert)
+    service = XService(runtime.gateway, runtime.t, archive=runtime.tweets.upsert)
     try:
-        yield Backend(service=service, status=runtime)
+        yield Backend(service=service, status=runtime, watch=runtime.watch_service)
     finally:
         await service.drain()
         await runtime.stop()

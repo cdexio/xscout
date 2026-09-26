@@ -148,6 +148,19 @@ class AccountPool:
             total += sum(self.headroom(acc, operation, b, now) for b in primary + extra)
         return total
 
+    def window_capacity(self, operation: str) -> int:
+        """Requests the active accounts can make in one full window (planning; temporary cooldowns ignored)."""
+        total = 0
+        for acc in self.accounts.values():
+            if acc.status != AccountStatus.ACTIVE:
+                continue
+            primary, extra = self.buckets_for(operation, acc)
+            for name in primary + extra:
+                b = acc.bucket(operation, name)
+                limit = b.limit if b.limit is not None else self.default_limit(operation, name)
+                total += max(0, limit - self.reserve(limit))
+        return total
+
     # MARK: lease / release
 
     def lease(self, operation: str) -> Lease | NoLease:

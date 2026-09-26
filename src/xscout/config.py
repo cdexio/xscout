@@ -82,7 +82,7 @@ class CacheTunables(BaseModel):
 class GatewayTunables(BaseModel):
     max_attempts: int = Field(3, ge=1)  # accounts tried per page before giving up
     max_wait_sec_p0: float = 8.0  # how long an on-demand request may wait for a free account
-    max_wait_sec_p1: float = 0.0
+    max_wait_sec_p1: float = 5.0
     network_backoff_sec: float = 1.0
     transient_cooldown_sec: int = 30  # 5xx / load shed on one bucket
     tid_missing_cooldown_sec: int = 300  # bucket needs a TID and none is available
@@ -99,6 +99,11 @@ class ApiTunables(BaseModel):
 class WatchTunables(BaseModel):
     max_query_chars: int = Field(500, le=512)
     max_pages_per_poll: int = 5
+    min_interval_sec: int = 30
+    max_interval_sec: int = 86400
+    tick_sec: float = 1.0
+    max_concurrent_polls: int = 4
+    reload_sec: float = 30.0  # re-read watch items from the DB (the API also triggers a reload)
 
 
 class RetentionTunables(BaseModel):
