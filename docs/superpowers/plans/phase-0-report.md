@@ -47,10 +47,11 @@ in `tools/probe/out/` (git-ignored); sanitized fixtures in
    chunks if an operation is missing; `/x-web/` support stays for when X
    switches this account's build.
 
-## Needs a decision from the owner
+## Owner decision (2026-09-26)
 
-- Bucket policy in point 2: default above, or use all four buckets
-  equally from the start.
+- Bucket policy: **option A** — POST/main primary, GET/main secondary,
+  alternative-bearer buckets as overflow only (switchable per account); the
+  phase 6 soak decides whether overflow stays on.
 
 ## Security note
 

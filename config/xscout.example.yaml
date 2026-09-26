@@ -1,0 +1,56 @@
+# xscout tunables. Copy to config/xscout.yaml to override; every key is optional
+# and falls back to the defaults below (spec §5). Values are calibrated in the
+# phase 6 soak.
+
+pool:
+  reserve_min: 5            # never let remaining drop below max(reserve_min, reserve_ratio * limit)
+  reserve_ratio: 0.10
+  gap_min_sec: 2.0          # minimum gap between two requests of one account (+ random jitter)
+  gap_max_sec: 4.0
+  max_in_flight_per_account: 1
+  lease_timeout_sec: 60
+  impersonate_profiles: [chrome150, chrome146, chrome145]
+
+cooldowns:
+  rate_limited_sec: 3600    # 429 / code 88 while remaining > 0
+  rate_limited_lock_after: 3
+  rate_limited_lock_window_sec: 86400
+  cloudflare_sec: 900
+  unknown_error_sec: 900
+
+budget:
+  p0_share: 0.4             # on-demand bot requests
+  p1_share: 0.6             # watchlist; may borrow unused P0
+
+buckets:
+  order:
+    SearchTimeline: [POST/main, GET/main, POST/alt, GET/alt]
+    UserByScreenName: [GET/main, GET/alt]
+    UserTweets: [GET/main, GET/alt]
+  overflow: [POST/alt, GET/alt]
+  overflow_enabled: true
+
+cache:
+  ttl_sec:
+    SearchTimeline: 60
+    UserByScreenName: 3600
+    UserTweets: 120
+  default_ttl_sec: 60
+
+api:
+  page_size: 20
+  max_pages: 10
+
+watch:
+  max_query_chars: 500      # X rejects search queries over 512 characters
+  max_pages_per_poll: 5
+
+retention:
+  tweets_days: 90
+  samples_days: 7
+  request_log_days: 30
+
+intervals:
+  registry_refresh_sec: 21600
+  canary_sec: 600
+  tid_rebuild_sec: 10800

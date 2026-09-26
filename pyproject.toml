@@ -1,0 +1,56 @@
+[project]
+name = "xscout"
+version = "0.1.0"
+description = "Self-hosted X (Twitter) scraping service shared by the trading bots"
+requires-python = ">=3.14"
+dependencies = [
+    "alembic>=1.20",
+    "asyncpg>=0.31",
+    "beautifulsoup4>=4.15",
+    "click>=8.5",
+    "cryptography>=50.0",
+    "curl-cffi>=0.16.3",
+    "fastapi>=0.141",
+    "pydantic>=2.13",
+    "pydantic-settings>=2.15",
+    "pyyaml>=6.0",
+    "sqlalchemy[asyncio]>=2.1",
+    "uvicorn>=0.54",
+]
+
+[project.scripts]
+xscout = "xscout.cli.main:cli"
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+    "pytest-asyncio>=1.0",
+    "ruff>=0.13",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/xscout"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "session"
+asyncio_default_test_loop_scope = "session"
+markers = [
+    "live: calls the real X API with a real account (opt-in: -m live)",
+    "db: needs the xscout_test PostgreSQL database",
+]
+addopts = "-m 'not live'"
+
+[tool.ruff]
+line-length = 120
+target-version = "py314"
+extend-exclude = ["tools/probe"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "ASYNC", "SIM"]
