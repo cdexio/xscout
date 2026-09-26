@@ -35,6 +35,7 @@ from xscout.xweb.tid import TidProvider
 log = logging.getLogger("xscout.runtime")
 
 ACCOUNT_SYNC_SEC = 60.0
+CORE_OPS = ("SearchTimeline", "UserByScreenName", "UserTweets")
 
 
 def _cred_key(c: AccountCredentials) -> tuple:
@@ -109,6 +110,54 @@ class Runtime:
                 await fn()
             except Exception as e:  # a failing loop must not kill the service
                 log.warning("background task failed", extra={"fields": {"task": fn.__name__, "error": str(e)}})
+
+    # MARK: status reports (served by /health, /v1/accounts, /v1/budget)
+
+    def health_report(self) -> dict:
+        now = self.clock()
+        accounts = list(self.pool.accounts.values())
+        usable = [a for a in accounts if self.pool.usable(a, now) and a.id in self.clients]
+        specs = self.registry.snapshot()
+        tid_layers = {self.tids.layer_for(a.id) for a in usable}
+        problems = []
+        if self.registry.last_error:
+            problems.append(f"registry: {self.registry.last_error}")
+        if any(specs[n].source == "fallback" for n in CORE_OPS if n in specs):
+            problems.append("registry: using hardcoded fallback query ids")
+        if self.tids.last_error:
+            problems.append(f"tid: {self.tids.last_error}")
+        status = "down" if not usable else "degraded" if problems else "ok"
+        return {
+            "status": status,
+            "problems": problems,
+            "accounts": {
+                "total": len(accounts),
+                "active": sum(1 for a in accounts if a.status == AccountStatus.ACTIVE),
+                "usable": len(usable),
+            },
+            "registry": {n: {"query_id": s.query_id, "source": s.source} for n, s in sorted(specs.items())},
+            "tid_layers": sorted(tid_layers),
+            "capacity": {op: self.pool.capacity(op) for op in CORE_OPS},
+            "cache": self.cache.stats(),
+            "gateway": dict(self.gateway.stats),
+        }
+
+    def accounts_report(self) -> list[dict]:
+        return self.pool.snapshot()
+
+    def budget_report(self) -> dict:
+        return {
+            "window_sec": 900,
+            "shares": {"P0": self.t.budget.p0_share, "P1": self.t.budget.p1_share},
+            "operations": {
+                op: {
+                    "capacity_left": self.pool.capacity(op),
+                    "used": {p.value: n for p, n in self.budget.used(op).items()},
+                }
+                for op in CORE_OPS
+            },
+            "by_consumer": self.budget.usage_by_consumer(),
+        }
 
     # MARK: accounts
 

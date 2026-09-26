@@ -179,6 +179,37 @@ def accounts_remove(username: str) -> None:
     click.echo("removed" if removed else "not found")
 
 
+@cli.command()
+def serve() -> None:
+    """Run the HTTP API (bound to XSCOUT_HOST, loopback by default)."""
+    import uvicorn
+
+    from xscout.api.main import build_app
+    from xscout.log import setup_logging
+
+    settings = _settings()
+    setup_logging(settings.log_level)
+    uvicorn.run(build_app(), host=settings.host, port=settings.port, log_config=None, access_log=False)
+
+
+@cli.command()
+@click.option("--out", default=str(PROJECT_DIR / "docs" / "openapi.json"), show_default=True)
+def openapi(out: str) -> None:
+    """Export the OpenAPI schema for consumers (e.g. to generate zetryn's typed client)."""
+    from contextlib import asynccontextmanager
+    from pathlib import Path
+
+    from xscout.api.app import create_app
+
+    @asynccontextmanager
+    async def no_backend():
+        yield None
+
+    schema = create_app(no_backend).openapi()
+    Path(out).write_text(json.dumps(schema, indent=2) + "\n")
+    click.echo(f"wrote {out} ({len(schema.get('paths', {}))} paths)")
+
+
 def _register_dev_commands() -> None:
     from xscout.cli.xdev import pool_cmd, x
 

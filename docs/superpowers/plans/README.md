@@ -12,7 +12,7 @@ implemented, following its plan. Design:
 | 1 | [Foundation](phase-1-foundation.md) — **built 2026-09-26**, see [report](phase-1-report.md) | 0 | accounts added encrypted and listed; DB migrated |
 | 2 | [xweb + transport](phase-2-xweb-transport.md) — **built 2026-09-26**, see [report](phase-2-report.md) | 1 | CLI searches, fetches a profile and a user's tweets with one account |
 | 3 | [Pool + gateway](phase-3-pool-gateway.md) — **built 2026-09-26**, see [report](phase-3-report.md) | 2 | pool/budget tests pass; live load spreads evenly over all accounts |
-| 4 | [HTTP API (on-demand)](phase-4-http-api.md) | 3 | bots can call it; 503 with retry_after works |
+| 4 | [HTTP API (on-demand)](phase-4-http-api.md) — **built 2026-09-26**, see [report](phase-4-report.md) | 3 | bots can call it; 503 with retry_after works |
 | 5 | [Watchlist + feed](phase-5-watchlist-feed.md) | 4 | tier-1 KOL tweets reach the feed within interval + 1 min |
 | 6 | [Canary + resilience](phase-6-canary-resilience.md) | 5 | 24 h soak, no locked account; canary detects a simulated break |
 | 7 | [Consumer integration](phase-7-consumer-integration.md) | 6 | submitted separately for owner approval |

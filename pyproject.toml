@@ -23,6 +23,7 @@ xscout = "xscout.cli.main:cli"
 
 [dependency-groups]
 dev = [
+    "httpx2>=2.13",
     "pytest>=8",
     "pytest-asyncio>=1.0",
     "ruff>=0.13",

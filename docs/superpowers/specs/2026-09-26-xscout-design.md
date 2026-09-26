@@ -302,7 +302,7 @@ nothing is applied automatically.
 | `GET /v1/search/tweets?q=&tab=latest\|top&limit=&cursor=&max_age_sec=` | Tweet search with full X operators |
 | `GET /v1/search/users?q=&limit=` | User search (People tab) |
 | `GET /v1/users/{username}` | User profile |
-| `GET /v1/users/{username}/tweets?limit=&include_replies=` | Latest tweets of a user |
+| `GET /v1/users/{username}/tweets?limit=&cursor=` | Latest tweets of a user (no replies; `include_replies` needs the `UserTweetsAndReplies` operation and is deferred until it is verified live) |
 | `POST/GET/PATCH/DELETE /v1/watchlist` | Manage watch items |
 | `GET /v1/feed?tags=&since=&limit=&wait_sec=` | New watchlist tweets since a sequence number; long-poll up to 30 s |
 | `GET /v1/budget` | Capacity, projected watchlist load, usage per bot |
