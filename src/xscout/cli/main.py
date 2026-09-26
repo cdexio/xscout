@@ -180,9 +180,10 @@ def accounts_remove(username: str) -> None:
 
 
 def _register_dev_commands() -> None:
-    from xscout.cli.xdev import x
+    from xscout.cli.xdev import pool_cmd, x
 
     cli.add_command(x)
+    cli.add_command(pool_cmd)
 
 
 _register_dev_commands()

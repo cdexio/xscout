@@ -79,6 +79,18 @@ class CacheTunables(BaseModel):
     default_ttl_sec: int = 60
 
 
+class GatewayTunables(BaseModel):
+    max_attempts: int = Field(3, ge=1)  # accounts tried per page before giving up
+    max_wait_sec_p0: float = 8.0  # how long an on-demand request may wait for a free account
+    max_wait_sec_p1: float = 0.0
+    network_backoff_sec: float = 1.0
+    transient_cooldown_sec: int = 30  # 5xx / load shed on one bucket
+    tid_missing_cooldown_sec: int = 300  # bucket needs a TID and none is available
+    registry_refresh_min_interval_sec: int = 600  # after 404s
+    cache_max_entries: int = 5000
+    state_flush_sec: float = 5.0
+
+
 class ApiTunables(BaseModel):
     page_size: int = 20
     max_pages: int = Field(10, ge=1)
@@ -107,6 +119,7 @@ class Tunables(BaseModel):
     budget: BudgetTunables = Field(default_factory=BudgetTunables)
     buckets: BucketTunables = Field(default_factory=BucketTunables)
     cache: CacheTunables = Field(default_factory=CacheTunables)
+    gateway: GatewayTunables = Field(default_factory=GatewayTunables)
     api: ApiTunables = Field(default_factory=ApiTunables)
     watch: WatchTunables = Field(default_factory=WatchTunables)
     retention: RetentionTunables = Field(default_factory=RetentionTunables)

@@ -205,5 +205,73 @@ def x_user_tweets(username: str, pages: int, bucket_name: str, account: str | No
     _run(main)
 
 
+@x.command("burst")
+@click.argument("queries", nargs=-1, required=True)
+@click.option("--repeat", default=1, show_default=True, type=click.IntRange(1, 10))
+@click.option("--consumer", default="cli", show_default=True)
+def x_burst(queries: tuple[str, ...], repeat: int, consumer: str) -> None:
+    """Run searches concurrently through the gateway and show how they spread over accounts and buckets."""
+    from collections import Counter
+
+    from xscout.gateway.gateway import Unavailable
+    from xscout.gateway.runtime import Runtime
+
+    async def main() -> None:
+        rt = Runtime(get_settings())
+        await rt.start(background=False)
+        try:
+            jobs = [q for q in queries for _ in range(repeat)]
+
+            async def one(q: str):
+                try:
+                    r = await rt.gateway.run(lambda cur, q=q: ops.search(q, cursor=cur), consumer=consumer)
+                    return q, r.meta, len(r.pages[0].items) if r.pages else 0, None
+                except Unavailable as e:
+                    return q, None, 0, f"unavailable: {e.reason} (retry {e.retry_after_sec}s)"
+
+            results = await asyncio.gather(*(one(q) for q in jobs))
+            for q, meta, n, err in results:
+                if err:
+                    click.echo(f"# {q!r}: {err}", err=True)
+                else:
+                    click.echo(
+                        f"# {q!r}: items={n} cached={meta.cached} shared={meta.shared} attempts={meta.attempts}",
+                        err=True,
+                    )
+            spread = Counter((r.account_id, r.bucket, r.outcome) for r in rt._pending_requests)
+            names = {a.id: a.username for a in rt.pool.accounts.values()}
+            _emit(
+                {
+                    "requests_sent": len(rt._pending_requests),
+                    "spread": [
+                        {"account": names.get(a), "bucket": b, "outcome": o, "count": c}
+                        for (a, b, o), c in sorted(spread.items(), key=lambda kv: str(kv[0]))
+                    ],
+                    "cache": rt.cache.stats(),
+                    "gateway": rt.gateway.stats,
+                }
+            )
+        finally:
+            await rt.stop()
+
+    _run(main)
+
+
+@click.command("pool")
+def pool_cmd() -> None:
+    """Show accounts with their stored quota state per operation and bucket."""
+    from xscout.gateway.runtime import Runtime
+
+    async def main() -> None:
+        rt = Runtime(get_settings())
+        await rt.start(background=False)
+        try:
+            _emit(rt.pool.snapshot())
+        finally:
+            await rt.stop()
+
+    _run(main)
+
+
 if __name__ == "__main__":
     x(sys.argv[1:])

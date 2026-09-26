@@ -185,6 +185,56 @@ class AccountRepository:
             await s.refresh(acc)
             return AccountView.of(acc)
 
+    async def active_credentials(self) -> list[AccountCredentials]:
+        async with self._sessions() as s:
+            rows = (await s.scalars(select(Account).where(Account.status == AccountStatus.ACTIVE))).all()
+            return [
+                AccountCredentials(
+                    id=a.id,
+                    username=a.username,
+                    auth_token=self._box.decrypt(a.auth_token_enc),
+                    ct0=self._box.decrypt(a.ct0_enc),
+                    proxy=self._box.decrypt(a.proxy_enc) if a.proxy_enc else None,
+                    impersonate=a.impersonate,
+                    allow_overflow=a.allow_overflow,
+                )
+                for a in rows
+            ]
+
+    async def set_status_by_id(self, account_id: int, status: AccountStatus, reason: str | None) -> None:
+        async with self._sessions.begin() as s:
+            acc = await s.get(Account, account_id)
+            if acc is not None:
+                acc.status = status
+                acc.status_reason = reason
+                acc.status_changed_at = datetime.now(UTC)
+
+    async def update_ct0(self, account_id: int, ct0: str) -> None:
+        """X rotated the csrf cookie; keep the stored copy current."""
+        value = validate_cookie("ct0", ct0)
+        async with self._sessions.begin() as s:
+            acc = await s.get(Account, account_id)
+            if acc is not None:
+                acc.ct0_enc = self._box.encrypt(value)
+
+    async def record_use(
+        self,
+        account_id: int,
+        used_at: datetime,
+        error: str | None = None,
+        cooling_until: datetime | None = None,
+    ) -> None:
+        async with self._sessions.begin() as s:
+            acc = await s.get(Account, account_id)
+            if acc is None:
+                return
+            acc.last_used_at = used_at
+            if error:
+                acc.last_error = error[:1000]
+                acc.last_error_at = used_at
+            if cooling_until is not None:
+                acc.cooling_until = cooling_until
+
     async def remove(self, username: str) -> bool:
         name = normalize_username(username)
         async with self._sessions.begin() as s:
