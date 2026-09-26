@@ -84,6 +84,31 @@ verified, `[U]` = uncertain and must be settled in phase 0.
 - `[U]` Maximum length of a search query (limits the size of batched
   `from:a OR from:b` watch queries).
 
+### 2.1 Phase 0 live results (2026-09-26)
+
+Measured with one account; details in `../plans/phase-0-report.md`.
+These override the values above where they differ.
+
+- `[V]` All dependencies work on Python 3.14.7.
+- `[V]` Limits per 15 min: UserByScreenName 150, SearchTimeline 50 (GET),
+  UserTweets 50.
+- `[V]` **Limit buckets are per (account, operation, method, bearer).**
+  SearchTimeline: GET+main 50, POST+main 187, GET+alt 50, POST+alt 187, all
+  returning full pages. UserByScreenName with the alternative bearer has its
+  own 150 bucket.
+- `[V]` GET SearchTimeline without a TID returns 404; POST works without a
+  TID; UserByScreenName works without a TID. Own generator and pair-dict
+  TIDs are both accepted.
+- `[V]` Discovery from the logged-in legacy build's `main.js` finds 105
+  operations with their feature switches and field toggles. X accepts more
+  than one queryId per operation at a time.
+- `[V]` Search query max length is 512 characters; over it X answers
+  HTTP 200 with error 214 and no entries.
+- `[V]` User objects no longer have `legacy`; counts are in
+  `relationship_counts` and `tweet_counts`. Tweets still have `legacy`.
+- `[U]` Per-IP limit and hidden bot score from missing TID remain open
+  (phase 6 soak).
+
 ## 3. Decisions
 
 | Topic | Decision |
@@ -137,10 +162,18 @@ component that knows X's wire format.
 
 ### Limit state
 
-Stored per (account, operation): `limit`, `remaining`, `reset_at`,
+Stored per (account, operation, bucket), where bucket = method × bearer
+(e.g. `POST/main`, `GET/alt`): `limit`, `remaining`, `reset_at`,
 `last_used_at`, `cooling_until`. Updated from every response's headers.
-Operations never called by an account start from conservative defaults
-(section 2 values) and are replaced by real headers after the first call.
+Buckets never called by an account start from conservative defaults
+(section 2.1 values) and are replaced by real headers after the first call.
+
+Bucket policy per operation is configuration: an ordered list of allowed
+buckets. Default for SearchTimeline: `POST/main` (primary), `GET/main`
+(secondary), `POST/alt` and `GET/alt` as overflow only. The selector
+picks, for the chosen account, the allowed bucket with the most headroom,
+preferring earlier buckets on ties. Overflow buckets can be switched off
+globally or per account.
 
 ### Account selection
 
@@ -170,6 +203,7 @@ Account statuses: `active`, `cooling` (per operation or global, time-bound),
 | 404 on a normally working operation | Refresh queryId and TID, retry on another account, report to canary |
 | HTML / Cloudflare 403 | Cool the account 15 min, retry on another account, count occurrences |
 | 353 | Treat as bad cookies (`ct0` missing/wrong) → `expired` |
+| 214 (inside HTTP 200) | Input error (e.g. query over 512 chars) → `400` to the caller, account not penalized |
 | Network error | Exponential backoff, account not penalized |
 | Unknown error | Cool the (account, operation) 15 min, store a response sample |
 
@@ -283,8 +317,11 @@ configuration.
 - Item: `kind` (`user` | `query`), `value`, `interval_sec`, `tags`,
   `enabled`.
 - User watches with the same interval class are batched into
-  `from:a OR from:b …` Latest searches; batch size is set from the measured
-  query-length limit (phase 0). Fallback: UserTweets per user.
+  `from:a OR from:b …` Latest searches of at most 500 characters
+  (X's limit is 512, measured in phase 0; ≈ 25–30 handles). Each poll pages
+  until it reaches the newest tweet id already seen for that batch (page
+  cap in config), because busy accounts crowd quieter ones out of a single
+  page. Fallback: UserTweets per user.
 - Query watches: Latest search, deduplicated by already-seen tweet ids.
 - Two bots watching the same value share one item: shortest interval wins,
   tags are merged.

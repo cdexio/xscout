@@ -1,0 +1,2408 @@
+{
+  "data": {
+    "search_by_raw_query": {
+      "search_timeline": {
+        "timeline": {
+          "instructions": [
+            {
+              "type": "TimelineClearCache"
+            },
+            {
+              "entries": [
+                {
+                  "content": {
+                    "__typename": "TimelineTimelineItem",
+                    "clientEventInfo": {
+                      "component": "result",
+                      "element": "user"
+                    },
+                    "entryType": "TimelineTimelineItem",
+                    "itemContent": {
+                      "__typename": "TimelineUser",
+                      "itemType": "TimelineUser",
+                      "userDisplayType": "User",
+                      "user_results": {
+                        "result": {
+                          "__typename": "User",
+                          "action_counts": {
+                            "favorites_count": 2771
+                          },
+                          "affiliates_highlighted_label": {},
+                          "avatar": {
+                            "image_url": "https://pbs.twimg.com/profile_images/421692600446619648/dWAbC2wg_normal.jpeg"
+                          },
+                          "banner": {
+                            "image_url": "https://pbs.twimg.com/profile_banners/357312062/1566845268"
+                          },
+                          "core": {
+                            "created_at": "Thu Aug 18 05:06:08 +0000 2011",
+                            "name": "Bitcoin",
+                            "screen_name": "Bitcoin"
+                          },
+                          "follow_request_sent": false,
+                          "has_graduated_access": true,
+                          "id": "VXNlcjozNTczMTIwNjI=",
+                          "is_blue_verified": true,
+                          "location": {
+                            "location": "Worldwide"
+                          },
+                          "media_permissions": {
+                            "can_media_tag": false
+                          },
+                          "notifications_settings": {
+                            "notifications_enabled": false
+                          },
+                          "parody_commentary_fan_label": "None",
+                          "pinned_items": {
+                            "tweet_ids_str": [
+                              "1283491850641461248"
+                            ]
+                          },
+                          "possibly_sensitive": false,
+                          "privacy": {
+                            "protected": false
+                          },
+                          "professional": {
+                            "category": [],
+                            "professional_type": "Business",
+                            "rest_id": "1679703878185672704"
+                          },
+                          "profile_bio": {
+                            "description": "Bitcoin is an open source censorship-resistant peer-to-peer immutable network. Trackable digital gold. Don't trust; verify. Not your keys; not your coins.",
+                            "entities": {
+                              "description": {},
+                              "url": {
+                                "urls": [
+                                  {
+                                    "display_url": "bitcoin.org/bitcoin.pdf",
+                                    "expanded_url": "https://bitcoin.org/bitcoin.pdf",
+                                    "indices": [
+                                      0,
+                                      23
+                                    ],
+                                    "url": "https://t.co/foKG3v5VuE"
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "profile_description_language": "en",
+                          "profile_image_shape": "Circle",
+                          "profile_metadata": {
+                            "profile_interstitial_type": ""
+                          },
+                          "profile_translation": {
+                            "translator_type": "regular"
+                          },
+                          "relationship_counts": {
+                            "followers": 8910189,
+                            "following": 13
+                          },
+                          "relationship_perspectives": {
+                            "blocked_by": false,
+                            "blocking": false,
+                            "followed_by": false,
+                            "following": false,
+                            "live_following": false,
+                            "muting": false
+                          },
+                          "rest_id": "357312062",
+                          "super_follow_eligible": false,
+                          "super_followed_by": false,
+                          "super_following": false,
+                          "tweet_counts": {
+                            "media_tweets": 4580,
+                            "tweets": 30162
+                          },
+                          "verification": {
+                            "verified": false
+                          },
+                          "website": {
+                            "url": "https://t.co/foKG3v5VuE"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "entryId": "user-357312062",
+                  "sortIndex": "2103755742665244672"
+                },
+                {
+                  "content": {
+                    "__typename": "TimelineTimelineItem",
+                    "clientEventInfo": {
+                      "component": "result",
+                      "element": "user"
+                    },
+                    "entryType": "TimelineTimelineItem",
+                    "itemContent": {
+                      "__typename": "TimelineUser",
+                      "itemType": "TimelineUser",
+                      "userDisplayType": "User",
+                      "user_results": {
+                        "result": {
+                          "__typename": "User",
+                          "action_counts": {
+                            "favorites_count": 45214
+                          },
+                          "affiliates_highlighted_label": {},
+                          "avatar": {
+                            "image_url": "https://pbs.twimg.com/profile_images/1444022922377576453/AzvXYXGr_normal.jpg"
+                          },
+                          "banner": {
+                            "image_url": "https://pbs.twimg.com/profile_banners/361289499/1789424207"
+                          },
+                          "core": {
+                            "created_at": "Wed Aug 24 15:14:54 +0000 2011",
+                            "name": "Bitcoin Magazine",
+                            "screen_name": "BitcoinMagazine"
+                          },
+                          "follow_request_sent": false,
+                          "has_graduated_access": true,
+                          "id": "VXNlcjozNjEyODk0OTk=",
+                          "is_blue_verified": true,
+                          "location": {
+                            "location": "Nashville, TN"
+                          },
+                          "media_permissions": {
+                            "can_media_tag": true
+                          },
+                          "notifications_settings": {
+                            "notifications_enabled": false
+                          },
+                          "parody_commentary_fan_label": "None",
+                          "pinned_items": {
+                            "tweet_ids_str": [
+                              "2103477233532928511"
+                            ]
+                          },
+                          "possibly_sensitive": false,
+                          "privacy": {
+                            "protected": false
+                          },
+                          "professional": {
+                            "category": [
+                              {
+                                "icon_name": "IconBriefcaseStroke",
+                                "id": 580,
+                                "name": "Media & News Company"
+                              }
+                            ],
+                            "professional_type": "Business",
+                            "rest_id": "1539690895368388612"
+                          },
+                          "profile_bio": {
+                            "description": "The Most Trusted Voice In #Bitcoin 🟠 • Find us https://t.co/X4mXn4g3Oo",
+                            "entities": {
+                              "description": {
+                                "urls": [
+                                  {
+                                    "display_url": "linktr.ee/btcinc",
+                                    "expanded_url": "http://linktr.ee/btcinc",
+                                    "indices": [
+                                      47,
+                                      70
+                                    ],
+                                    "url": "https://t.co/X4mXn4g3Oo"
+                                  }
+                                ]
+                              },
+                              "url": {
+                                "urls": [
+                                  {
+                                    "display_url": "BitcoinMagazine.com",
+                                    "expanded_url": "http://BitcoinMagazine.com",
+                                    "indices": [
+                                      0,
+                                      23
+                                    ],
+                                    "url": "https://t.co/UPj0DCrX32"
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "profile_description_language": "en",
+                          "profile_image_shape": "Square",
+                          "profile_metadata": {
+                            "profile_interstitial_type": ""
+                          },
+                          "profile_translation": {
+                            "translator_type": "regular"
+                          },
+                          "relationship_counts": {
+                            "followers": 4494167,
+                            "following": 1226
+                          },
+                          "relationship_perspectives": {
+                            "blocked_by": false,
+                            "blocking": false,
+                            "followed_by": false,
+                            "following": false,
+                            "live_following": false,
+                            "muting": false
+                          },
+                          "rest_id": "361289499",
+                          "super_follow_eligible": true,
+                          "super_followed_by": false,
+                          "super_following": false,
+                          "tweet_counts": {
+                            "media_tweets": 20579,
+                            "tweets": 45668
+                          },
+                          "verification": {
+                            "verified": false,
+                            "verified_type": "Business"
+                          },
+                          "website": {
+                            "url": "https://t.co/UPj0DCrX32"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "entryId": "user-361289499",
+                  "sortIndex": "2103755742665244662"
+                },
+                {
+                  "content": {
+                    "__typename": "TimelineTimelineItem",
+                    "clientEventInfo": {
+                      "component": "result",
+                      "element": "user"
+                    },
+                    "entryType": "TimelineTimelineItem",
+                    "itemContent": {
+                      "__typename": "TimelineUser",
+                      "itemType": "TimelineUser",
+                      "userDisplayType": "User",
+                      "user_results": {
+                        "result": {
+                          "__typename": "User",
+                          "action_counts": {
+                            "favorites_count": 11077
+                          },
+                          "affiliates_highlighted_label": {
+                            "label": {
+                              "badge": {
+                                "url": "https://pbs.twimg.com/profile_images/1917480016348323840/DivPie9n_bigger.jpg"
+                              },
+                              "description": "Bitcoin.com",
+                              "url": {
+                                "url": "https://twitter.com/BitcoinCom",
+                                "urlType": "DeepLink"
+                              },
+                              "userLabelDisplayType": "Badge",
+                              "userLabelType": "BusinessLabel"
+                            }
+                          },
+                          "avatar": {
+                            "image_url": "https://pbs.twimg.com/profile_images/1917825669825966080/2bAp4kVv_normal.jpg"
+                          },
+                          "banner": {
+                            "image_url": "https://pbs.twimg.com/profile_banners/3367334171/1766757651"
+                          },
+                          "core": {
+                            "created_at": "Thu Jul 09 08:58:22 +0000 2015",
+                            "name": "Bitcoin.com News",
+                            "screen_name": "BitcoinNews"
+                          },
+                          "follow_request_sent": false,
+                          "has_graduated_access": true,
+                          "id": "VXNlcjozMzY3MzM0MTcx",
+                          "is_blue_verified": true,
+                          "location": {
+                            "location": "Global"
+                          },
+                          "media_permissions": {
+                            "can_media_tag": true
+                          },
+                          "notifications_settings": {
+                            "notifications_enabled": false
+                          },
+                          "parody_commentary_fan_label": "None",
+                          "pinned_items": {
+                            "tweet_ids_str": [
+                              "2103499772170522938"
+                            ]
+                          },
+                          "possibly_sensitive": false,
+                          "privacy": {
+                            "protected": false
+                          },
+                          "professional": {
+                            "category": [
+                              {
+                                "icon_name": "IconBriefcaseStroke",
+                                "id": 580,
+                                "name": "Media & News Company"
+                              }
+                            ],
+                            "professional_type": "Business",
+                            "rest_id": "1980306755545387227"
+                          },
+                          "profile_bio": {
+                            "description": "Get Bitcoin, crypto, and economics news in 36 languages. Follow @bitcoincom for updates, join us on TG: https://t.co/2pY59RGHhk. Ads: ads@bitcoin.com.",
+                            "entities": {
+                              "description": {
+                                "urls": [
+                                  {
+                                    "display_url": "t.me/www_Bitcoin_com",
+                                    "expanded_url": "http://t.me/www_Bitcoin_com",
+                                    "indices": [
+                                      104,
+                                      127
+                                    ],
+                                    "url": "https://t.co/2pY59RGHhk"
+                                  }
+                                ]
+                              },
+                              "url": {
+                                "urls": [
+                                  {
+                                    "display_url": "news.bitcoin.com",
+                                    "expanded_url": "http://news.bitcoin.com",
+                                    "indices": [
+                                      0,
+                                      23
+                                    ],
+                                    "url": "https://t.co/OXeevPHGym"
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "profile_description_language": "en",
+                          "profile_image_shape": "Square",
+                          "profile_metadata": {
+                            "profile_interstitial_type": ""
+                          },
+                          "profile_translation": {
+                            "translator_type": "none"
+                          },
+                          "relationship_counts": {
+                            "followers": 3271541,
+                            "following": 1055
+                          },
+                          "relationship_perspectives": {
+                            "blocked_by": false,
+                            "blocking": false,
+                            "followed_by": false,
+                            "following": false,
+                            "live_following": false,
+                            "muting": false
+                          },
+                          "rest_id": "3367334171",
+                          "super_follow_eligible": true,
+                          "super_followed_by": false,
+                          "super_following": false,
+                          "tweet_counts": {
+                            "media_tweets": 22286,
+                            "tweets": 73546
+                          },
+                          "verification": {
+                            "verified": false,
+                            "verified_type": "Business"
+                          },
+                          "website": {
+                            "url": "https://t.co/OXeevPHGym"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "entryId": "user-3367334171",
+                  "sortIndex": "2103755742665244652"
+                },
+                {
+                  "content": {
+                    "__typename": "TimelineTimelineItem",
+                    "clientEventInfo": {
+                      "component": "result",
+                      "element": "user"
+                    },
+                    "entryType": "TimelineTimelineItem",
+                    "itemContent": {
+                      "__typename": "TimelineUser",
+                      "itemType": "TimelineUser",
+                      "userDisplayType": "User",
+                      "user_results": {
+                        "result": {
+                          "__typename": "User",
+                          "action_counts": {
+                            "favorites_count": 1814
+                          },
+                          "affiliates_highlighted_label": {},
+                          "avatar": {
+                            "image_url": "https://pbs.twimg.com/profile_images/1691351216096460800/HqthDDP8_normal.png"
+                          },
+                          "banner": {
+                            "image_url": "https://pbs.twimg.com/profile_banners/114557496/1692084533"
+                          },
+                          "core": {
+                            "created_at": "Mon Feb 15 20:38:49 +0000 2010",
+                            "name": "Crypto X Messi | Founder⚡️| Altcoin Web3 Bitcoin💎",
+                            "screen_name": "CryptoXMessi"
+                          },
+                          "follow_request_sent": false,
+                          "has_graduated_access": true,
+                          "id": "VXNlcjoxMTQ1NTc0OTY=",
+                          "is_blue_verified": true,
+                          "location": {
+                            "location": "Kentucky, USA"
+                          },
+                          "media_permissions": {
+                            "can_media_tag": true
+                          },
+                          "notifications_settings": {
+                            "notifications_enabled": false
+                          },
+                          "parody_commentary_fan_label": "None",
+                          "pinned_items": {},
+                          "possibly_sensitive": false,
+                          "privacy": {
+                            "protected": false
+                          },
+                          "professional": {
+                            "category": [
+                              {
+                                "icon_name": "IconBriefcaseStroke",
+                                "id": 192,
+                                "name": "Financial Services"
+                              }
+                            ],
+                            "professional_type": "Creator",
+                            "rest_id": "1640295330116763648"
+                          },
+                          "profile_bio": {
+                            "description": "Crypto Influencer I Marketing Agency\nSoftware Engineer\nPromo | #SpacesHost \nAnalysis on Artificial intelligence #NFT $PEPE $BASE $XRP $SHIB $ETH $TESLA #SPACEX",
+                            "entities": {
+                              "description": {},
+                              "url": {
+                                "urls": [
+                                  {
+                                    "display_url": "t.me/Altfinder",
+                                    "expanded_url": "https://t.me/Altfinder",
+                                    "indices": [
+                                      0,
+                                      23
+                                    ],
+                                    "url": "https://t.co/8AIn3sfk9a"
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "profile_description_language": "en",
+                          "profile_image_shape": "Circle",
+                          "profile_metadata": {
+                            "profile_interstitial_type": ""
+                          },
+                          "profile_translation": {
+                            "translator_type": "none"
+                          },
+                          "relationship_counts": {
+                            "followers": 3581961,
+                            "following": 0
+                          },
+                          "relationship_perspectives": {
+                            "blocked_by": false,
+                            "blocking": false,
+                            "followed_by": false,
+                            "following": false,
+                            "live_following": false,
+                            "muting": false
+                          },
+                          "rest_id": "114557496",
+                          "super_follow_eligible": false,
+                          "super_followed_by": false,
+                          "super_following": false,
+                          "tweet_counts": {
+                            "media_tweets": 184,
+                            "tweets": 1472
+                          },
+                          "verification": {
+                            "verified": false
+                          },
+                          "website": {
+                            "url": "https://t.co/8AIn3sfk9a"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "entryId": "user-114557496",
+                  "sortIndex": "2103755742665244642"
+                },
+                {
+                  "content": {
+                    "__typename": "TimelineTimelineItem",
+                    "clientEventInfo": {
+                      "component": "result",
+                      "element": "user"
+                    },
+                    "entryType": "TimelineTimelineItem",
+                    "itemContent": {
+                      "__typename": "TimelineUser",
+                      "itemType": "TimelineUser",
+                      "userDisplayType": "User",
+                      "user_results": {
+                        "result": {
+                          "__typename": "User",
+                          "action_counts": {
+                            "favorites_count": 194548
+                          },
+                          "affiliates_highlighted_label": {},
+                          "avatar": {
+                            "image_url": "https://pbs.twimg.com/profile_images/1988731421440057344/K5XjVEkh_normal.jpg"
+                          },
+                          "banner": {
+                            "image_url": "https://pbs.twimg.com/profile_banners/970994516357472257/1789988630"
+                          },
+                          "core": {
+                            "created_at": "Tue Mar 06 12:08:27 +0000 2018",
+                            "name": "Bitcoin Archive",
+                            "screen_name": "BitcoinArchive"
+                          },
+                          "follow_request_sent": false,
+                          "has_graduated_access": true,
+                          "id": "VXNlcjo5NzA5OTQ1MTYzNTc0NzIyNTc=",
+                          "is_blue_verified": true,
+                          "location": {
+                            "location": "Bitcoin.Archive.Channel@gmail"
+                          },
+                          "media_permissions": {
+                            "can_media_tag": false
+                          },
+                          "notifications_settings": {
+                            "notifications_enabled": false
+                          },
+                          "parody_commentary_fan_label": "None",
+                          "pinned_items": {
+                            "tweet_ids_str": [
+                              "2093364456558322005"
+                            ]
+                          },
+                          "possibly_sensitive": false,
+                          "privacy": {
+                            "protected": false
+                          },
+                          "profile_bio": {
+                            "description": "Bitcoin News, Insight, & Analysis \n🗄️ 🚀 🌙 \n\n📺 YOUTUBE: https://t.co/mVGviKErxq",
+                            "entities": {
+                              "description": {
+                                "urls": [
+                                  {
+                                    "display_url": "bit.ly/BitcoinArchive…",
+                                    "expanded_url": "https://bit.ly/BitcoinArchiveYT",
+                                    "indices": [
+                                      55,
+                                      78
+                                    ],
+                                    "url": "https://t.co/mVGviKErxq"
+                                  }
+                                ]
+                              },
+                              "url": {
+                                "urls": [
+                                  {
+                                    "display_url": "bitcoinarchive.co",
+                                    "expanded_url": "http://bitcoinarchive.co",
+                                    "indices": [
+                                      0,
+                                      23
+                                    ],
+                                    "url": "https://t.co/HC6I5K6H2V"
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "profile_description_language": "en",
+                          "profile_image_shape": "Square",
+                          "profile_metadata": {
+                            "profile_interstitial_type": ""
+                          },
+                          "profile_translation": {
+                            "translator_type": "none"
+                          },
+                          "relationship_counts": {
+                            "followers": 1803798,
+                            "following": 1049
+                          },
+                          "relationship_perspectives": {
+                            "blocked_by": false,
+                            "blocking": false,
+                            "followed_by": false,
+                            "following": false,
+                            "live_following": false,
+                            "muting": false
+                          },
+                          "rest_id": "970994516357472257",
+                          "super_follow_eligible": true,
+                          "super_followed_by": false,
+                          "super_following": false,
+                          "tweet_counts": {
+                            "media_tweets": 12799,
+                            "tweets": 55954
+                          },
+                          "verification": {
+                            "verified": false,
+                            "verified_type": "Business"
+                          },
+                          "website": {
+                            "url": "https://t.co/HC6I5K6H2V"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "entryId": "user-970994516357472257",
+                  "sortIndex": "2103755742665244632"
+                },
+                {
+                  "content": {
+                    "__typename": "TimelineTimelineItem",
+                    "clientEventInfo": {
+                      "component": "result",
+                      "element": "user"
+                    },
+                    "entryType": "TimelineTimelineItem",
+                    "itemContent": {
+                      "__typename": "TimelineUser",
+                      "itemType": "TimelineUser",
+                      "userDisplayType": "User",
+                      "user_results": {
+                        "result": {
+                          "__typename": "User",
+                          "action_counts": {
+                            "favorites_count": 22996
+                          },
+                          "affiliates_highlighted_label": {},
+                          "avatar": {
+                            "image_url": "https://pbs.twimg.com/profile_images/1151326497073852416/qIPfN3HN_normal.png"
+                          },
+                          "banner": {
+                            "image_url": "https://pbs.twimg.com/profile_banners/1151046460688887808/1563332776"
+                          },
+                          "core": {
+                            "created_at": "Tue Jul 16 08:30:36 +0000 2019",
+                            "name": "Bitcoin Fear and Greed Index",
+                            "screen_name": "BitcoinFear"
+                          },
+                          "follow_request_sent": false,
+                          "has_graduated_access": true,
+                          "id": "VXNlcjoxMTUxMDQ2NDYwNjg4ODg3ODA4",
+                          "is_blue_verified": true,
+                          "location": {
+                            "location": "TURN 🔔 NOTIFICATIONS ON"
+                          },
+                          "media_permissions": {
+                            "can_media_tag": true
+                          },
+                          "notifications_settings": {
+                            "notifications_enabled": false
+                          },
+                          "parody_commentary_fan_label": "None",
+                          "pinned_items": {},
+                          "possibly_sensitive": false,
+                          "privacy": {
+                            "protected": false
+                          },
+                          "profile_bio": {
+                            "description": "sometimes accurate",
+                            "entities": {
+                              "description": {},
+                              "url": {
+                                "urls": [
+                                  {
+                                    "display_url": "t.me/bitcoinfear_ch…",
+                                    "expanded_url": "https://t.me/bitcoinfear_chat",
+                                    "indices": [
+                                      0,
+                                      23
+                                    ],
+                                    "url": "https://t.co/tsdaa1ioc3"
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "profile_description_language": "en",
+                          "profile_image_shape": "Circle",
+                          "profile_metadata": {
+                            "profile_interstitial_type": ""
+                          },
+                          "profile_translation": {
+                            "translator_type": "none"
+                          },
+                          "relationship_counts": {
+                            "followers": 765575,
+                            "following": 5
+                          },
+                          "relationship_perspectives": {
+                            "blocked_by": false,
+                            "blocking": false,
+                            "followed_by": false,
+                            "following": false,
+                            "live_following": false,
+                            "muting": false
+                          },
+                          "rest_id": "1151046460688887808",
+                          "super_follow_eligible": true,
+                          "super_followed_by": false,
+                          "super_following": false,
+                          "tweet_counts": {
+                            "media_tweets": 7648,
+                            "tweets": 12055
+                          },
+                          "verification": {
+                            "verified": false
+                          },
+                          "website": {
+                            "url": "https://t.co/tsdaa1ioc3"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "entryId": "user-1151046460688887808",
+                  "sortIndex": "2103755742665244622"
+                },
+                {
+                  "content": {
+                    "__typename": "TimelineTimelineItem",
+                    "clientEventInfo": {
+                      "component": "result",
+                      "element": "user"
+                    },
+                    "entryType": "TimelineTimelineItem",
+                    "itemContent": {
+                      "__typename": "TimelineUser",
+                      "itemType": "TimelineUser",
+                      "userDisplayType": "User",
+                      "user_results": {
+                        "result": {
+                          "__typename": "User",
+                          "action_counts": {
+                            "favorites_count": 2014
+                          },
+                          "affiliates_highlighted_label": {},
+                          "avatar": {
+                            "image_url": "https://pbs.twimg.com/profile_images/1618840744709754883/ww1I_dOz_normal.jpg"
+                          },
+                          "banner": {
+                            "image_url": "https://pbs.twimg.com/profile_banners/955744720092835841/1789555922"
+                          },
+                          "core": {
+                            "created_at": "Tue Jan 23 10:11:12 +0000 2018",
+                            "name": "WazirX: India Ka Bitcoin Exchange",
+                            "screen_name": "WazirXIndia"
+                          },
+                          "follow_request_sent": false,
+                          "has_graduated_access": true,
+                          "id": "VXNlcjo5NTU3NDQ3MjAwOTI4MzU4NDE=",
+                          "is_blue_verified": true,
+                          "location": {
+                            "location": "🌏"
+                          },
+                          "media_permissions": {
+                            "can_media_tag": false
+                          },
+                          "notifications_settings": {
+                            "notifications_enabled": false
+                          },
+                          "parody_commentary_fan_label": "None",
+                          "pinned_items": {
+                            "tweet_ids_str": [
+                              "2095382122232201410"
+                            ]
+                          },
+                          "possibly_sensitive": false,
+                          "privacy": {
+                            "protected": false
+                          },
+                          "professional": {
+                            "category": [],
+                            "professional_type": "Business",
+                            "rest_id": "1605422148415168512"
+                          },
+                          "profile_bio": {
+                            "description": "Building a smarter way for India to trade crypto 💪\n\nOfficial Telegram:  https://t.co/H7oMxQu2ZF\n\nFor support, tag @WazirXCares",
+                            "entities": {
+                              "description": {
+                                "urls": [
+                                  {
+                                    "display_url": "t.me/wazirx",
+                                    "expanded_url": "https://t.me/wazirx",
+                                    "indices": [
+                                      72,
+                                      95
+                                    ],
+                                    "url": "https://t.co/H7oMxQu2ZF"
+                                  }
+                                ]
+                              },
+                              "url": {
+                                "urls": [
+                                  {
+                                    "display_url": "wazirx.com/signup",
+                                    "expanded_url": "http://wazirx.com/signup",
+                                    "indices": [
+                                      0,
+                                      23
+                                    ],
+                                    "url": "https://t.co/uYHJAdY0ua"
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "profile_description_language": "en",
+                          "profile_image_shape": "Square",
+                          "profile_metadata": {
+                            "profile_interstitial_type": ""
+                          },
+                          "profile_translation": {
+                            "translator_type": "none"
+                          },
+                          "relationship_counts": {
+                            "followers": 625126,
+                            "following": 0
+                          },
+                          "relationship_perspectives": {
+                            "blocked_by": false,
+                            "blocking": false,
+                            "followed_by": false,
+                            "following": false,
+                            "live_following": false,
+                            "muting": false
+                          },
+                          "rest_id": "955744720092835841",
+                          "super_follow_eligible": false,
+                          "super_followed_by": false,
+                          "super_following": false,
+                          "tweet_counts": {
+                            "media_tweets": 3233,
+                            "tweets": 39221
+                          },
+                          "verification": {
+                            "verified": false,
+                            "verified_type": "Business"
+                          },
+                          "website": {
+                            "url": "https://t.co/uYHJAdY0ua"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "entryId": "user-955744720092835841",
+                  "sortIndex": "2103755742665244612"
+                },
+                {
+                  "content": {
+                    "__typename": "TimelineTimelineItem",
+                    "clientEventInfo": {
+                      "component": "result",
+                      "element": "user"
+                    },
+                    "entryType": "TimelineTimelineItem",
+                    "itemContent": {
+                      "__typename": "TimelineUser",
+                      "itemType": "TimelineUser",
+                      "userDisplayType": "User",
+                      "user_results": {
+                        "result": {
+                          "__typename": "User",
+                          "action_counts": {
+                            "favorites_count": 2548
+                          },
+                          "affiliates_highlighted_label": {},
+                          "avatar": {
+                            "image_url": "https://pbs.twimg.com/profile_images/1863452189328293888/hxhkxukT_normal.jpg"
+                          },
+                          "banner": {
+                            "image_url": "https://pbs.twimg.com/profile_banners/1688455242/1769299496"
+                          },
+                          "core": {
+                            "created_at": "Wed Aug 21 14:44:05 +0000 2013",
+                            "name": "Bitcoin Bro 10",
+                            "screen_name": "bitcoinBroTen"
+                          },
+                          "follow_request_sent": false,
+                          "has_graduated_access": true,
+                          "id": "VXNlcjoxNjg4NDU1MjQy",
+                          "is_blue_verified": true,
+                          "location": {
+                            "location": ""
+                          },
+                          "media_permissions": {
+                            "can_media_tag": false
+                          },
+                          "notifications_settings": {
+                            "notifications_enabled": false
+                          },
+                          "parody_commentary_fan_label": "None",
+                          "pinned_items": {},
+                          "possibly_sensitive": false,
+                          "privacy": {
+                            "protected": false
+                          },
+                          "professional": {
+                            "category": [],
+                            "professional_type": "Business",
+                            "rest_id": "1593263778925350913"
+                          },
+                          "profile_bio": {
+                            "description": "BTC since 2017 💰\nCrypto Millionaire 2021\nETH • Telcoin • Degen Projects\nCrypto gambling | High risk, high reward 🎲",
+                            "entities": {
+                              "description": {}
+                            }
+                          },
+                          "profile_description_language": "en",
+                          "profile_image_shape": "Circle",
+                          "profile_metadata": {
+                            "profile_interstitial_type": ""
+                          },
+                          "profile_translation": {
+                            "translator_type": "none"
+                          },
+                          "relationship_counts": {
+                            "followers": 551628,
+                            "following": 620
+                          },
+                          "relationship_perspectives": {
+                            "blocked_by": false,
+                            "blocking": false,
+                            "followed_by": false,
+                            "following": false,
+                            "live_following": false,
+                            "muting": false
+                          },
+                          "rest_id": "1688455242",
+                          "super_follow_eligible": false,
+                          "super_followed_by": false,
+                          "super_following": false,
+                          "tweet_counts": {
+                            "media_tweets": 233,
+                            "tweets": 20057
+                          },
+                          "verification": {
+                            "verified": false
+                          },
+                          "website": {
+                            "url": ""
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "entryId": "user-1688455242",
+                  "sortIndex": "2103755742665244602"
+                },
+                {
+                  "content": {
+                    "__typename": "TimelineTimelineItem",
+                    "clientEventInfo": {
+                      "component": "result",
+                      "element": "user"
+                    },
+                    "entryType": "TimelineTimelineItem",
+                    "itemContent": {
+                      "__typename": "TimelineUser",
+                      "itemType": "TimelineUser",
+                      "userDisplayType": "User",
+                      "user_results": {
+                        "result": {
+                          "__typename": "User",
+                          "action_counts": {
+                            "favorites_count": 846185
+                          },
+                          "affiliates_highlighted_label": {},
+                          "avatar": {
+                            "image_url": "https://pbs.twimg.com/profile_images/1506583148955586561/lwY5pQ9r_normal.jpg"
+                          },
+                          "banner": {
+                            "image_url": "https://pbs.twimg.com/profile_banners/978932870/1518696666"
+                          },
+                          "core": {
+                            "created_at": "Thu Nov 29 18:48:12 +0000 2012",
+                            "name": "Capitán Bitcoin",
+                            "screen_name": "CapitanBitcoin"
+                          },
+                          "follow_request_sent": false,
+                          "has_graduated_access": true,
+                          "id": "VXNlcjo5Nzg5MzI4NzA=",
+                          "is_blue_verified": true,
+                          "location": {
+                            "location": ""
+                          },
+                          "media_permissions": {
+                            "can_media_tag": false
+                          },
+                          "notifications_settings": {
+                            "notifications_enabled": false
+                          },
+                          "parody_commentary_fan_label": "None",
+                          "pinned_items": {
+                            "tweet_ids_str": [
+                              "2102327749817827801"
+                            ]
+                          },
+                          "possibly_sensitive": false,
+                          "privacy": {
+                            "protected": false
+                          },
+                          "profile_bio": {
+                            "description": "Cada año te quitan más y te dan menos. En mi grupo privado te enseño estrategias para proteger lo que es tuyo.",
+                            "entities": {
+                              "description": {},
+                              "url": {
+                                "urls": [
+                                  {
+                                    "display_url": "capitanbitcoin.net/comunidad",
+                                    "expanded_url": "https://capitanbitcoin.net/comunidad",
+                                    "indices": [
+                                      0,
+                                      23
+                                    ],
+                                    "url": "https://t.co/JtP6bmpKel"
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "profile_description_language": "es",
+                          "profile_image_shape": "Circle",
+                          "profile_metadata": {
+                            "profile_interstitial_type": ""
+                          },
+                          "profile_translation": {
+                            "translator_type": "none"
+                          },
+                          "relationship_counts": {
+                            "followers": 577467,
+                            "following": 8659
+                          },
+                          "relationship_perspectives": {
+                            "blocked_by": false,
+                            "blocking": false,
+                            "followed_by": false,
+                            "following": false,
+                            "live_following": false,
+                            "muting": false
+                          },
+                          "rest_id": "978932870",
+                          "super_follow_eligible": true,
+                          "super_followed_by": false,
+                          "super_following": false,
+                          "tweet_counts": {
+                            "media_tweets": 9466,
+                            "tweets": 25322
+                          },
+                          "verification": {
+                            "verified": false
+                          },
+                          "website": {
+                            "url": "https://t.co/JtP6bmpKel"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "entryId": "user-978932870",
+                  "sortIndex": "2103755742665244592"
+                },
+                {
+                  "content": {
+                    "__typename": "TimelineTimelineItem",
+                    "clientEventInfo": {
+                      "component": "result",
+                      "element": "user"
+                    },
+                    "entryType": "TimelineTimelineItem",
+                    "itemContent": {
+                      "__typename": "TimelineUser",
+                      "itemType": "TimelineUser",
+                      "userDisplayType": "User",
+                      "user_results": {
+                        "result": {
+                          "__typename": "User",
+                          "action_counts": {
+                            "favorites_count": 35276
+                          },
+                          "affiliates_highlighted_label": {},
+                          "avatar": {
+                            "image_url": "https://pbs.twimg.com/profile_images/1800108180221108224/5wZMtWyE_normal.jpg"
+                          },
+                          "banner": {
+                            "image_url": "https://pbs.twimg.com/profile_banners/1410243693773090823/1718012597"
+                          },
+                          "core": {
+                            "created_at": "Wed Jun 30 14:28:03 +0000 2021",
+                            "name": "Bitcoin China中国🇨🇳",
+                            "screen_name": "BitcoinChina_"
+                          },
+                          "follow_request_sent": false,
+                          "has_graduated_access": true,
+                          "id": "VXNlcjoxNDEwMjQzNjkzNzczMDkwODIz",
+                          "is_blue_verified": true,
+                          "location": {
+                            "location": "印钞机"
+                          },
+                          "media_permissions": {
+                            "can_media_tag": true
+                          },
+                          "notifications_settings": {
+                            "notifications_enabled": false
+                          },
+                          "parody_commentary_fan_label": "None",
+                          "pinned_items": {},
+                          "possibly_sensitive": false,
+                          "privacy": {
+                            "protected": false
+                          },
+                          "professional": {
+                            "category": [],
+                            "professional_type": "Business",
+                            "rest_id": "1633081613058977792"
+                          },
+                          "profile_bio": {
+                            "description": "Listing coins to Asian users, Building civilized community\n全球领先的交易平台 #BitcoinChina \n官方中文社群 https://t.co/QdhkmO7OLn\nDM : https://t.co/vkp1lpn8vz",
+                            "entities": {
+                              "description": {
+                                "urls": [
+                                  {
+                                    "display_url": "t.me/BitcoinChinaCh…",
+                                    "expanded_url": "https://t.me/BitcoinChinaChannel",
+                                    "indices": [
+                                      91,
+                                      114
+                                    ],
+                                    "url": "https://t.co/QdhkmO7OLn"
+                                  },
+                                  {
+                                    "display_url": "t.me/doujincc",
+                                    "expanded_url": "https://t.me/doujincc",
+                                    "indices": [
+                                      120,
+                                      143
+                                    ],
+                                    "url": "https://t.co/vkp1lpn8vz"
+                                  }
+                                ]
+                              },
+                              "url": {
+                                "urls": [
+                                  {
+                                    "display_url": "bitcoinchina.io",
+                                    "expanded_url": "https://bitcoinchina.io",
+                                    "indices": [
+                                      0,
+                                      23
+                                    ],
+                                    "url": "https://t.co/6Nkxnm0kZQ"
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "profile_image_shape": "Circle",
+                          "profile_metadata": {
+                            "profile_interstitial_type": ""
+                          },
+                          "profile_translation": {
+                            "translator_type": "none"
+                          },
+                          "relationship_counts": {
+                            "followers": 368760,
+                            "following": 136
+                          },
+                          "relationship_perspectives": {
+                            "blocked_by": false,
+                            "blocking": false,
+                            "followed_by": false,
+                            "following": false,
+                            "live_following": false,
+                            "muting": false
+                          },
+                          "rest_id": "1410243693773090823",
+                          "super_follow_eligible": false,
+                          "super_followed_by": false,
+                          "super_following": false,
+                          "tweet_counts": {
+                            "media_tweets": 1719,
+                            "tweets": 17464
+                          },
+                          "verification": {
+                            "verified": false
+                          },
+                          "website": {
+                            "url": "https://t.co/6Nkxnm0kZQ"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "entryId": "user-1410243693773090823",
+                  "sortIndex": "2103755742665244582"
+                },
+                {
+                  "content": {
+                    "__typename": "TimelineTimelineItem",
+                    "clientEventInfo": {
+                      "component": "result",
+                      "element": "user"
+                    },
+                    "entryType": "TimelineTimelineItem",
+                    "itemContent": {
+                      "__typename": "TimelineUser",
+                      "itemType": "TimelineUser",
+                      "userDisplayType": "User",
+                      "user_results": {
+                        "result": {
+                          "__typename": "User",
+                          "action_counts": {
+                            "favorites_count": 686
+                          },
+                          "affiliates_highlighted_label": {},
+                          "avatar": {
+                            "image_url": "https://pbs.twimg.com/profile_images/1434042641843425280/TsMfrq5h_normal.jpg"
+                          },
+                          "banner": {
+                            "image_url": "https://pbs.twimg.com/profile_banners/707471022/1630737045"
+                          },
+                          "core": {
+                            "created_at": "Fri Jul 20 17:03:52 +0000 2012",
+                            "name": "Bitcoin Foundation",
+                            "screen_name": "BTCFoundation"
+                          },
+                          "follow_request_sent": false,
+                          "has_graduated_access": true,
+                          "id": "VXNlcjo3MDc0NzEwMjI=",
+                          "is_blue_verified": false,
+                          "location": {
+                            "location": "Decentralized"
+                          },
+                          "media_permissions": {
+                            "can_media_tag": true
+                          },
+                          "notifications_settings": {
+                            "notifications_enabled": false
+                          },
+                          "parody_commentary_fan_label": "None",
+                          "pinned_items": {
+                            "tweet_ids_str": [
+                              "1988709003761971347"
+                            ]
+                          },
+                          "possibly_sensitive": false,
+                          "privacy": {
+                            "protected": false
+                          },
+                          "professional": {
+                            "category": [
+                              {
+                                "icon_name": "IconBriefcaseStroke",
+                                "id": 688,
+                                "name": "Non-Governmental & Nonprofit Organization "
+                              }
+                            ],
+                            "professional_type": "Business",
+                            "rest_id": "1658148380621647876"
+                          },
+                          "profile_bio": {
+                            "description": "The original Bitcoin advocacy organization. We raise awareness of the benefits, uses and technology of #Bitcoin and support global #BTC adoption.",
+                            "entities": {
+                              "description": {}
+                            }
+                          },
+                          "profile_description_language": "en",
+                          "profile_image_shape": "Circle",
+                          "profile_metadata": {
+                            "profile_interstitial_type": ""
+                          },
+                          "profile_translation": {
+                            "translator_type": "none"
+                          },
+                          "relationship_counts": {
+                            "followers": 358797,
+                            "following": 225
+                          },
+                          "relationship_perspectives": {
+                            "blocked_by": false,
+                            "blocking": false,
+                            "followed_by": false,
+                            "following": false,
+                            "live_following": false,
+                            "muting": false
+                          },
+                          "rest_id": "707471022",
+                          "super_follow_eligible": false,
+                          "super_followed_by": false,
+                          "super_following": false,
+                          "tweet_counts": {
+                            "media_tweets": 282,
+                            "tweets": 4786
+                          },
+                          "verification": {
+                            "verified": false
+                          },
+                          "website": {
+                            "url": ""
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "entryId": "user-707471022",
+                  "sortIndex": "2103755742665244572"
+                },
+                {
+                  "content": {
+                    "__typename": "TimelineTimelineItem",
+                    "clientEventInfo": {
+                      "component": "result",
+                      "element": "user"
+                    },
+                    "entryType": "TimelineTimelineItem",
+                    "itemContent": {
+                      "__typename": "TimelineUser",
+                      "itemType": "TimelineUser",
+                      "userDisplayType": "User",
+                      "user_results": {
+                        "result": {
+                          "__typename": "User",
+                          "action_counts": {
+                            "favorites_count": 796
+                          },
+                          "affiliates_highlighted_label": {},
+                          "avatar": {
+                            "image_url": "https://pbs.twimg.com/profile_images/2017449120882098176/jBpzXq6A_normal.jpg"
+                          },
+                          "banner": {
+                            "image_url": "https://pbs.twimg.com/profile_banners/1597132648521953280/1755186549"
+                          },
+                          "core": {
+                            "created_at": "Mon Nov 28 07:38:01 +0000 2022",
+                            "name": "B² Network | Scaling Bitcoin",
+                            "screen_name": "BSquaredNetwork"
+                          },
+                          "follow_request_sent": false,
+                          "has_graduated_access": true,
+                          "id": "VXNlcjoxNTk3MTMyNjQ4NTIxOTUzMjgw",
+                          "is_blue_verified": true,
+                          "location": {
+                            "location": "$B2"
+                          },
+                          "media_permissions": {
+                            "can_media_tag": true
+                          },
+                          "notifications_settings": {
+                            "notifications_enabled": false
+                          },
+                          "parody_commentary_fan_label": "None",
+                          "pinned_items": {},
+                          "possibly_sensitive": false,
+                          "privacy": {
+                            "protected": false
+                          },
+                          "profile_bio": {
+                            "description": "Put Bitcoin in Every AI Agent’s Wallet | Scaling BTC from Store of Value to Practical Utility | $B2 for governance & rewards\nhttps://t.co/IveK1dUWCc",
+                            "entities": {
+                              "description": {
+                                "urls": [
+                                  {
+                                    "display_url": "linktr.ee/bsquarednetwork",
+                                    "expanded_url": "https://linktr.ee/bsquarednetwork",
+                                    "indices": [
+                                      125,
+                                      148
+                                    ],
+                                    "url": "https://t.co/IveK1dUWCc"
+                                  }
+                                ]
+                              },
+                              "url": {
+                                "urls": [
+                                  {
+                                    "display_url": "bsquared.network",
+                                    "expanded_url": "https://www.bsquared.network/",
+                                    "indices": [
+                                      0,
+                                      23
+                                    ],
+                                    "url": "https://t.co/6alk4WzkT5"
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "profile_description_language": "en",
+                          "profile_image_shape": "Circle",
+                          "profile_metadata": {
+                            "profile_interstitial_type": ""
+                          },
+                          "profile_translation": {
+                            "translator_type": "none"
+                          },
+                          "relationship_counts": {
+                            "followers": 379083,
+                            "following": 326
+                          },
+                          "relationship_perspectives": {
+                            "blocked_by": false,
+                            "blocking": false,
+                            "followed_by": false,
+                            "following": false,
+                            "live_following": false,
+                            "muting": false
+                          },
+                          "rest_id": "1597132648521953280",
+                          "super_follow_eligible": false,
+                          "super_followed_by": false,
+                          "super_following": false,
+                          "tweet_counts": {
+                            "media_tweets": 740,
+                            "tweets": 2125
+                          },
+                          "verification": {
+                            "verified": false
+                          },
+                          "website": {
+                            "url": "https://t.co/6alk4WzkT5"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "entryId": "user-1597132648521953280",
+                  "sortIndex": "2103755742665244562"
+                },
+                {
+                  "content": {
+                    "__typename": "TimelineTimelineItem",
+                    "clientEventInfo": {
+                      "component": "result",
+                      "element": "user"
+                    },
+                    "entryType": "TimelineTimelineItem",
+                    "itemContent": {
+                      "__typename": "TimelineUser",
+                      "itemType": "TimelineUser",
+                      "userDisplayType": "User",
+                      "user_results": {
+                        "result": {
+                          "__typename": "User",
+                          "action_counts": {
+                            "favorites_count": 20992
+                          },
+                          "affiliates_highlighted_label": {},
+                          "avatar": {
+                            "image_url": "https://pbs.twimg.com/profile_images/1615632961260630016/xalL53Zd_normal.jpg"
+                          },
+                          "banner": {
+                            "image_url": "https://pbs.twimg.com/profile_banners/1296337092302139396/1766612645"
+                          },
+                          "core": {
+                            "created_at": "Thu Aug 20 06:44:14 +0000 2020",
+                            "name": "BITCOINLFG®",
+                            "screen_name": "bitcoinlfgo"
+                          },
+                          "follow_request_sent": false,
+                          "has_graduated_access": true,
+                          "id": "VXNlcjoxMjk2MzM3MDkyMzAyMTM5Mzk2",
+                          "is_blue_verified": true,
+                          "location": {
+                            "location": ""
+                          },
+                          "media_permissions": {
+                            "can_media_tag": true
+                          },
+                          "notifications_settings": {
+                            "notifications_enabled": false
+                          },
+                          "parody_commentary_fan_label": "None",
+                          "pinned_items": {
+                            "tweet_ids_str": [
+                              "2100554964385030364"
+                            ]
+                          },
+                          "possibly_sensitive": false,
+                          "privacy": {
+                            "protected": false
+                          },
+                          "profile_bio": {
+                            "description": "Bitcoin Maxi 👇",
+                            "entities": {
+                              "description": {},
+                              "url": {
+                                "urls": [
+                                  {
+                                    "display_url": "t.me/Xhabebe",
+                                    "expanded_url": "http://t.me/Xhabebe",
+                                    "indices": [
+                                      0,
+                                      23
+                                    ],
+                                    "url": "https://t.co/9VvLa1p21O"
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "profile_image_shape": "Circle",
+                          "profile_metadata": {
+                            "profile_interstitial_type": ""
+                          },
+                          "profile_translation": {
+                            "translator_type": "none"
+                          },
+                          "relationship_counts": {
+                            "followers": 332357,
+                            "following": 8202
+                          },
+                          "relationship_perspectives": {
+                            "blocked_by": false,
+                            "blocking": false,
+                            "followed_by": false,
+                            "following": false,
+                            "live_following": false,
+                            "muting": false
+                          },
+                          "rest_id": "1296337092302139396",
+                          "super_follow_eligible": true,
+                          "super_followed_by": false,
+                          "super_following": false,
+                          "tweet_counts": {
+                            "media_tweets": 13368,
+                            "tweets": 31014
+                          },
+                          "verification": {
+                            "verified": false
+                          },
+                          "website": {
+                            "url": "https://t.co/9VvLa1p21O"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "entryId": "user-1296337092302139396",
+                  "sortIndex": "2103755742665244552"
+                },
+                {
+                  "content": {
+                    "__typename": "TimelineTimelineItem",
+                    "clientEventInfo": {
+                      "component": "result",
+                      "element": "user"
+                    },
+                    "entryType": "TimelineTimelineItem",
+                    "itemContent": {
+                      "__typename": "TimelineUser",
+                      "itemType": "TimelineUser",
+                      "userDisplayType": "User",
+                      "user_results": {
+                        "result": {
+                          "__typename": "User",
+                          "action_counts": {
+                            "favorites_count": 11663
+                          },
+                          "affiliates_highlighted_label": {},
+                          "avatar": {
+                            "image_url": "https://pbs.twimg.com/profile_images/1900598763070386176/dQXUtMgf_normal.jpg"
+                          },
+                          "banner": {
+                            "image_url": "https://pbs.twimg.com/profile_banners/1741557908226359296/1746570254"
+                          },
+                          "core": {
+                            "created_at": "Sun Dec 31 20:32:28 +0000 2023",
+                            "name": "Nubit | Bitcoin Thunderbolt",
+                            "screen_name": "nubit_org"
+                          },
+                          "follow_request_sent": false,
+                          "has_graduated_access": true,
+                          "id": "VXNlcjoxNzQxNTU3OTA4MjI2MzU5Mjk2",
+                          "is_blue_verified": true,
+                          "location": {
+                            "location": "Bitcoin"
+                          },
+                          "media_permissions": {
+                            "can_media_tag": true
+                          },
+                          "notifications_settings": {
+                            "notifications_enabled": false
+                          },
+                          "parody_commentary_fan_label": "None",
+                          "pinned_items": {},
+                          "possibly_sensitive": false,
+                          "privacy": {
+                            "protected": false
+                          },
+                          "profile_bio": {
+                            "description": "Bitcoin boosting network for native assets, trading, and verification. Backed by @Polychain ⚡",
+                            "entities": {
+                              "description": {},
+                              "url": {
+                                "urls": [
+                                  {
+                                    "display_url": "nubit.org",
+                                    "expanded_url": "https://nubit.org/",
+                                    "indices": [
+                                      0,
+                                      23
+                                    ],
+                                    "url": "https://t.co/74kIYEgg2t"
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "profile_description_language": "en",
+                          "profile_image_shape": "Circle",
+                          "profile_metadata": {
+                            "profile_interstitial_type": ""
+                          },
+                          "profile_translation": {
+                            "translator_type": "none"
+                          },
+                          "relationship_counts": {
+                            "followers": 350758,
+                            "following": 71
+                          },
+                          "relationship_perspectives": {
+                            "blocked_by": false,
+                            "blocking": false,
+                            "followed_by": false,
+                            "following": false,
+                            "live_following": false,
+                            "muting": false
+                          },
+                          "rest_id": "1741557908226359296",
+                          "super_follow_eligible": false,
+                          "super_followed_by": false,
+                          "super_following": false,
+                          "tweet_counts": {
+                            "media_tweets": 800,
+                            "tweets": 2700
+                          },
+                          "verification": {
+                            "verified": false
+                          },
+                          "website": {
+                            "url": "https://t.co/74kIYEgg2t"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "entryId": "user-1741557908226359296",
+                  "sortIndex": "2103755742665244542"
+                },
+                {
+                  "content": {
+                    "__typename": "TimelineTimelineItem",
+                    "clientEventInfo": {
+                      "component": "result",
+                      "element": "user"
+                    },
+                    "entryType": "TimelineTimelineItem",
+                    "itemContent": {
+                      "__typename": "TimelineUser",
+                      "itemType": "TimelineUser",
+                      "userDisplayType": "User",
+                      "user_results": {
+                        "result": {
+                          "__typename": "User",
+                          "action_counts": {
+                            "favorites_count": 199
+                          },
+                          "affiliates_highlighted_label": {},
+                          "avatar": {
+                            "image_url": "https://pbs.twimg.com/profile_images/1632436881911607299/q0ZGlZc4_normal.jpg"
+                          },
+                          "banner": {
+                            "image_url": "https://pbs.twimg.com/profile_banners/1477731968376782850/1672121852"
+                          },
+                          "core": {
+                            "created_at": "Sun Jan 02 20:02:36 +0000 2022",
+                            "name": "Bitcoin professor",
+                            "screen_name": "Bitcoinprof0637"
+                          },
+                          "follow_request_sent": false,
+                          "has_graduated_access": true,
+                          "id": "VXNlcjoxNDc3NzMxOTY4Mzc2NzgyODUw",
+                          "is_blue_verified": true,
+                          "location": {
+                            "location": "San Francisco, CA"
+                          },
+                          "media_permissions": {
+                            "can_media_tag": true
+                          },
+                          "notifications_settings": {
+                            "notifications_enabled": false
+                          },
+                          "parody_commentary_fan_label": "None",
+                          "pinned_items": {
+                            "tweet_ids_str": [
+                              "2099067043584594201"
+                            ]
+                          },
+                          "possibly_sensitive": false,
+                          "privacy": {
+                            "protected": false
+                          },
+                          "professional": {
+                            "category": [
+                              {
+                                "icon_name": "IconBriefcaseStroke",
+                                "id": 192,
+                                "name": "Financial Services"
+                              }
+                            ],
+                            "professional_type": "Business",
+                            "rest_id": "1524466619707269121"
+                          },
+                          "profile_bio": {
+                            "description": "Bitcoin Professor | Daily on-chain alpha & cycle analysis | 8-9 figure lifetime views | Not financial advice",
+                            "entities": {
+                              "description": {},
+                              "url": {
+                                "urls": [
+                                  {
+                                    "display_url": "t.me/TRXUSDT0637",
+                                    "expanded_url": "https://t.me/TRXUSDT0637",
+                                    "indices": [
+                                      0,
+                                      23
+                                    ],
+                                    "url": "https://t.co/u7KpzZI0s4"
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "profile_image_shape": "Circle",
+                          "profile_metadata": {
+                            "profile_interstitial_type": ""
+                          },
+                          "profile_translation": {
+                            "translator_type": "none"
+                          },
+                          "relationship_counts": {
+                            "followers": 310169,
+                            "following": 2
+                          },
+                          "relationship_perspectives": {
+                            "blocked_by": false,
+                            "blocking": false,
+                            "followed_by": false,
+                            "following": false,
+                            "live_following": false,
+                            "muting": false
+                          },
+                          "rest_id": "1477731968376782850",
+                          "super_follow_eligible": true,
+                          "super_followed_by": false,
+                          "super_following": false,
+                          "tweet_counts": {
+                            "media_tweets": 1695,
+                            "tweets": 2281
+                          },
+                          "verification": {
+                            "verified": false
+                          },
+                          "website": {
+                            "url": "https://t.co/u7KpzZI0s4"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "entryId": "user-1477731968376782850",
+                  "sortIndex": "2103755742665244532"
+                },
+                {
+                  "content": {
+                    "__typename": "TimelineTimelineItem",
+                    "clientEventInfo": {
+                      "component": "result",
+                      "element": "user"
+                    },
+                    "entryType": "TimelineTimelineItem",
+                    "itemContent": {
+                      "__typename": "TimelineUser",
+                      "itemType": "TimelineUser",
+                      "userDisplayType": "User",
+                      "user_results": {
+                        "result": {
+                          "__typename": "User",
+                          "action_counts": {
+                            "favorites_count": 44749
+                          },
+                          "affiliates_highlighted_label": {},
+                          "avatar": {
+                            "image_url": "https://pbs.twimg.com/profile_images/2054579712140132352/W65uHReB_normal.jpg"
+                          },
+                          "banner": {
+                            "image_url": "https://pbs.twimg.com/profile_banners/1069702634960052224/1788287685"
+                          },
+                          "core": {
+                            "created_at": "Mon Dec 03 21:19:17 +0000 2018",
+                            "name": "The Bitcoin Conference",
+                            "screen_name": "TheBitcoinConf"
+                          },
+                          "follow_request_sent": false,
+                          "has_graduated_access": true,
+                          "id": "VXNlcjoxMDY5NzAyNjM0OTYwMDUyMjI0",
+                          "is_blue_verified": false,
+                          "location": {
+                            "location": "Bitcoin"
+                          },
+                          "media_permissions": {
+                            "can_media_tag": true
+                          },
+                          "notifications_settings": {
+                            "notifications_enabled": false
+                          },
+                          "parody_commentary_fan_label": "None",
+                          "pinned_items": {
+                            "tweet_ids_str": [
+                              "2049245141823856954"
+                            ]
+                          },
+                          "possibly_sensitive": false,
+                          "privacy": {
+                            "protected": false
+                          },
+                          "professional": {
+                            "category": [
+                              {
+                                "icon_name": "IconBriefcaseStroke",
+                                "id": 37,
+                                "name": "Event Venue"
+                              }
+                            ],
+                            "professional_type": "Business",
+                            "rest_id": "1453109473912836096"
+                          },
+                          "profile_bio": {
+                            "description": "World’s largest #Bitcoin conference! 🇳🇱 Amsterdam, Nov 5-6 | 🇺🇸 Nashville, July 15-17 2027 | 🇭🇰 Hong Kong, Aug 26-27 2027 | 🇦🇪 MENA, Late 2027",
+                            "entities": {
+                              "description": {},
+                              "url": {
+                                "urls": [
+                                  {
+                                    "display_url": "2027.b.tc",
+                                    "expanded_url": "https://2027.b.tc/",
+                                    "indices": [
+                                      0,
+                                      23
+                                    ],
+                                    "url": "https://t.co/jsJRfRkwAn"
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "profile_description_language": "en",
+                          "profile_image_shape": "Square",
+                          "profile_metadata": {
+                            "profile_interstitial_type": ""
+                          },
+                          "profile_translation": {
+                            "translator_type": "none"
+                          },
+                          "relationship_counts": {
+                            "followers": 320964,
+                            "following": 1823
+                          },
+                          "relationship_perspectives": {
+                            "blocked_by": false,
+                            "blocking": false,
+                            "followed_by": false,
+                            "following": false,
+                            "live_following": false,
+                            "muting": false
+                          },
+                          "rest_id": "1069702634960052224",
+                          "super_follow_eligible": false,
+                          "super_followed_by": false,
+                          "super_following": false,
+                          "tweet_counts": {
+                            "media_tweets": 10773,
+                            "tweets": 27097
+                          },
+                          "verification": {
+                            "verified": false,
+                            "verified_type": "Business"
+                          },
+                          "website": {
+                            "url": "https://t.co/jsJRfRkwAn"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "entryId": "user-1069702634960052224",
+                  "sortIndex": "2103755742665244522"
+                },
+                {
+                  "content": {
+                    "__typename": "TimelineTimelineItem",
+                    "clientEventInfo": {
+                      "component": "result",
+                      "element": "user"
+                    },
+                    "entryType": "TimelineTimelineItem",
+                    "itemContent": {
+                      "__typename": "TimelineUser",
+                      "itemType": "TimelineUser",
+                      "userDisplayType": "User",
+                      "user_results": {
+                        "result": {
+                          "__typename": "User",
+                          "action_counts": {
+                            "favorites_count": 172237
+                          },
+                          "affiliates_highlighted_label": {},
+                          "avatar": {
+                            "image_url": "https://pbs.twimg.com/profile_images/1387781203139432455/K9WH4axB_normal.jpg"
+                          },
+                          "banner": {
+                            "image_url": "https://pbs.twimg.com/profile_banners/820252180796100608/1619707661"
+                          },
+                          "core": {
+                            "created_at": "Sat Jan 14 12:52:14 +0000 2017",
+                            "name": "Bitcoin is Saving",
+                            "screen_name": "BitcoinIsSaving"
+                          },
+                          "follow_request_sent": false,
+                          "has_graduated_access": true,
+                          "id": "VXNlcjo4MjAyNTIxODA3OTYxMDA2MDg=",
+                          "is_blue_verified": true,
+                          "location": {
+                            "location": ""
+                          },
+                          "media_permissions": {
+                            "can_media_tag": false
+                          },
+                          "notifications_settings": {
+                            "notifications_enabled": false
+                          },
+                          "parody_commentary_fan_label": "None",
+                          "pinned_items": {
+                            "tweet_ids_str": [
+                              "1154202015423184898"
+                            ]
+                          },
+                          "possibly_sensitive": false,
+                          "privacy": {
+                            "protected": false
+                          },
+                          "profile_bio": {
+                            "description": "",
+                            "entities": {
+                              "description": {}
+                            }
+                          },
+                          "profile_image_shape": "Circle",
+                          "profile_metadata": {
+                            "profile_interstitial_type": ""
+                          },
+                          "profile_translation": {
+                            "translator_type": "none"
+                          },
+                          "relationship_counts": {
+                            "followers": 275675,
+                            "following": 8373
+                          },
+                          "relationship_perspectives": {
+                            "blocked_by": false,
+                            "blocking": false,
+                            "followed_by": false,
+                            "following": false,
+                            "live_following": false,
+                            "muting": false
+                          },
+                          "rest_id": "820252180796100608",
+                          "super_follow_eligible": false,
+                          "super_followed_by": false,
+                          "super_following": false,
+                          "tweet_counts": {
+                            "media_tweets": 3064,
+                            "tweets": 113901
+                          },
+                          "verification": {
+                            "verified": false
+                          },
+                          "website": {
+                            "url": ""
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "entryId": "user-820252180796100608",
+                  "sortIndex": "2103755742665244512"
+                },
+                {
+                  "content": {
+                    "__typename": "TimelineTimelineItem",
+                    "clientEventInfo": {
+                      "component": "result",
+                      "element": "user"
+                    },
+                    "entryType": "TimelineTimelineItem",
+                    "itemContent": {
+                      "__typename": "TimelineUser",
+                      "itemType": "TimelineUser",
+                      "userDisplayType": "User",
+                      "user_results": {
+                        "result": {
+                          "__typename": "User",
+                          "action_counts": {
+                            "favorites_count": 147811
+                          },
+                          "affiliates_highlighted_label": {},
+                          "avatar": {
+                            "image_url": "https://pbs.twimg.com/profile_images/1954890217342582784/JJawC78r_normal.jpg"
+                          },
+                          "banner": {
+                            "image_url": "https://pbs.twimg.com/profile_banners/380546370/1549642180"
+                          },
+                          "core": {
+                            "created_at": "Mon Sep 26 20:43:18 +0000 2011",
+                            "name": "//Bitcoin 𝕵ack 🐐",
+                            "screen_name": "bitcoinjack"
+                          },
+                          "follow_request_sent": false,
+                          "has_graduated_access": true,
+                          "id": "VXNlcjozODA1NDYzNzA=",
+                          "is_blue_verified": true,
+                          "location": {
+                            "location": "Planet Earth"
+                          },
+                          "media_permissions": {
+                            "can_media_tag": false
+                          },
+                          "notifications_settings": {
+                            "notifications_enabled": false
+                          },
+                          "parody_commentary_fan_label": "None",
+                          "pinned_items": {},
+                          "possibly_sensitive": false,
+                          "privacy": {
+                            "protected": false
+                          },
+                          "profile_bio": {
+                            "description": "|+| I'll eat when I'm hungry #Bitcoin |+| Magic @thestorecloud //",
+                            "entities": {
+                              "description": {}
+                            }
+                          },
+                          "profile_description_language": "en",
+                          "profile_image_shape": "Circle",
+                          "profile_metadata": {
+                            "profile_interstitial_type": ""
+                          },
+                          "profile_translation": {
+                            "translator_type": "none"
+                          },
+                          "relationship_counts": {
+                            "followers": 266687,
+                            "following": 1576
+                          },
+                          "relationship_perspectives": {
+                            "blocked_by": false,
+                            "blocking": false,
+                            "followed_by": false,
+                            "following": false,
+                            "live_following": false,
+                            "muting": false
+                          },
+                          "rest_id": "380546370",
+                          "super_follow_eligible": false,
+                          "super_followed_by": false,
+                          "super_following": false,
+                          "tweet_counts": {
+                            "media_tweets": 8732,
+                            "tweets": 61851
+                          },
+                          "verification": {
+                            "verified": false
+                          },
+                          "website": {
+                            "url": ""
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "entryId": "user-380546370",
+                  "sortIndex": "2103755742665244502"
+                },
+                {
+                  "content": {
+                    "__typename": "TimelineTimelineItem",
+                    "clientEventInfo": {
+                      "component": "result",
+                      "element": "user"
+                    },
+                    "entryType": "TimelineTimelineItem",
+                    "itemContent": {
+                      "__typename": "TimelineUser",
+                      "itemType": "TimelineUser",
+                      "userDisplayType": "User",
+                      "user_results": {
+                        "result": {
+                          "__typename": "User",
+                          "action_counts": {
+                            "favorites_count": 41680
+                          },
+                          "affiliates_highlighted_label": {},
+                          "avatar": {
+                            "image_url": "https://pbs.twimg.com/profile_images/1885428805788995584/cC9uBOnc_normal.jpg"
+                          },
+                          "banner": {
+                            "image_url": "https://pbs.twimg.com/profile_banners/3005014565/1738884779"
+                          },
+                          "core": {
+                            "created_at": "Fri Jan 30 05:40:08 +0000 2015",
+                            "name": "Bitcoin News",
+                            "screen_name": "BitcoinNewsCom"
+                          },
+                          "follow_request_sent": false,
+                          "has_graduated_access": true,
+                          "id": "VXNlcjozMDA1MDE0NTY1",
+                          "is_blue_verified": true,
+                          "location": {
+                            "location": "NYC"
+                          },
+                          "media_permissions": {
+                            "can_media_tag": true
+                          },
+                          "notifications_settings": {
+                            "notifications_enabled": false
+                          },
+                          "parody_commentary_fan_label": "None",
+                          "pinned_items": {
+                            "tweet_ids_str": [
+                              "2103500312153891051"
+                            ]
+                          },
+                          "possibly_sensitive": false,
+                          "privacy": {
+                            "protected": false
+                          },
+                          "professional": {
+                            "category": [
+                              {
+                                "icon_name": "IconBriefcaseStroke",
+                                "id": 580,
+                                "name": "Media & News Company"
+                              }
+                            ],
+                            "professional_type": "Business",
+                            "rest_id": "1490955714885525504"
+                          },
+                          "profile_bio": {
+                            "description": "Daily News on Bitcoin \n• Read Our Latest Article 📖 https://t.co/6qXRYNRbT9\n• Live on X and YouTube every Wednesday @ 11 EST",
+                            "entities": {
+                              "description": {
+                                "urls": [
+                                  {
+                                    "display_url": "bitcoinnews.com",
+                                    "expanded_url": "https://bitcoinnews.com",
+                                    "indices": [
+                                      51,
+                                      74
+                                    ],
+                                    "url": "https://t.co/6qXRYNRbT9"
+                                  }
+                                ]
+                              },
+                              "url": {
+                                "urls": [
+                                  {
+                                    "display_url": "linktr.ee/bitcoinnewscom",
+                                    "expanded_url": "https://linktr.ee/bitcoinnewscom",
+                                    "indices": [
+                                      0,
+                                      23
+                                    ],
+                                    "url": "https://t.co/IWJZeNhYtO"
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          "profile_description_language": "en",
+                          "profile_image_shape": "Square",
+                          "profile_metadata": {
+                            "profile_interstitial_type": ""
+                          },
+                          "profile_translation": {
+                            "translator_type": "none"
+                          },
+                          "relationship_counts": {
+                            "followers": 264980,
+                            "following": 745
+                          },
+                          "relationship_perspectives": {
+                            "blocked_by": false,
+                            "blocking": false,
+                            "followed_by": false,
+                            "following": false,
+                            "live_following": false,
+                            "muting": false
+                          },
+                          "rest_id": "3005014565",
+                          "super_follow_eligible": true,
+                          "super_followed_by": false,
+                          "super_following": false,
+                          "tweet_counts": {
+                            "media_tweets": 51346,
+                            "tweets": 89597
+                          },
+                          "verification": {
+                            "verified": false,
+                            "verified_type": "Business"
+                          },
+                          "website": {
+                            "url": "https://t.co/IWJZeNhYtO"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "entryId": "user-3005014565",
+                  "sortIndex": "2103755742665244492"
+                },
+                {
+                  "content": {
+                    "__typename": "TimelineTimelineItem",
+                    "clientEventInfo": {
+                      "component": "result",
+                      "element": "user"
+                    },
+                    "entryType": "TimelineTimelineItem",
+                    "itemContent": {
+                      "__typename": "TimelineUser",
+                      "itemType": "TimelineUser",
+                      "userDisplayType": "User",
+                      "user_results": {
+                        "result": {
+                          "__typename": "User",
+                          "action_counts": {
+                            "favorites_count": 2958
+                          },
+                          "affiliates_highlighted_label": {},
+                          "avatar": {
+                            "image_url": "https://pbs.twimg.com/profile_images/1795685371541422081/UTfzuYhh_normal.jpg"
+                          },
+                          "banner": {
+                            "image_url": "https://pbs.twimg.com/profile_banners/1421954297193844739/1709458766"
+                          },
+                          "core": {
+                            "created_at": "Sun Aug 01 22:01:51 +0000 2021",
+                            "name": "Bitcoin Cats",
+                            "screen_name": "BitcoinCats1Cat"
+                          },
+                          "follow_request_sent": false,
+                          "has_graduated_access": true,
+                          "id": "VXNlcjoxNDIxOTU0Mjk3MTkzODQ0NzM5",
+                          "is_blue_verified": true,
+                          "location": {
+                            "location": ""
+                          },
+                          "media_permissions": {
+                            "can_media_tag": true
+                          },
+                          "notifications_settings": {
+                            "notifications_enabled": false
+                          },
+                          "parody_commentary_fan_label": "None",
+                          "pinned_items": {},
+                          "possibly_sensitive": false,
+                          "privacy": {
+                            "protected": false
+                          },
+                          "profile_bio": {
+                            "description": "The cutest meme cat 🐱",
+                            "entities": {
+                              "description": {}
+                            }
+                          },
+                          "profile_description_language": "en",
+                          "profile_image_shape": "Circle",
+                          "profile_metadata": {
+                            "profile_interstitial_type": ""
+                          },
+                          "profile_translation": {
+                            "translator_type": "none"
+                          },
+                          "relationship_counts": {
+                            "followers": 252942,
+                            "following": 253
+                          },
+                          "relationship_perspectives": {
+                            "blocked_by": false,
+                            "blocking": false,
+                            "followed_by": false,
+                            "following": false,
+                            "live_following": false,
+                            "muting": false
+                          },
+                          "rest_id": "1421954297193844739",
+                          "super_follow_eligible": false,
+                          "super_followed_by": false,
+                          "super_following": false,
+                          "tweet_counts": {
+                            "media_tweets": 991,
+                            "tweets": 3524
+                          },
+                          "verification": {
+                            "verified": false
+                          },
+                          "website": {
+                            "url": ""
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "entryId": "user-1421954297193844739",
+                  "sortIndex": "2103755742665244482"
+                },
+                {
+                  "content": {
+                    "__typename": "TimelineTimelineCursor",
+                    "cursorType": "Top",
+                    "entryType": "TimelineTimelineCursor",
+                    "value": "DAAJAAA"
+                  },
+                  "entryId": "cursor-top-2103755742665244673",
+                  "sortIndex": "2103755742665244673"
+                },
+                {
+                  "content": {
+                    "__typename": "TimelineTimelineCursor",
+                    "cursorType": "Bottom",
+                    "entryType": "TimelineTimelineCursor",
+                    "value": "DAAFCgABHTIKs6e__z8LAAIAAADwRW1QQzZ3QUFBZlEvZ0dKTjB2R3AvQUFBQUJRVWdmVmxXRlpBQWcvNVZxaFJWUEFBQUFBQUFBYlVBamdBQUFBQXlMVnhHd0FBQUFBVlRDWStDMklmQXphWFVBQUFBQUFBS2lzbXJoZ3JRYkM3bXNBQUFBQUFBRHBaVklZVHU4dm1ReFJRQXhPU01TcnVGSEFIQUFBQUFCV0kxeHNBQUFBQUZxNnRRZzFEZk1KWkZyQUJFZjJEdDVmVThBUVdLaWV1amxSd0FBQUFBQUJrbzhoS0FBQUFBTE1jNGlVTzJGamhCQmZnQUExNXFsNDZWdUFCCAADAAAAAgAA"
+                  },
+                  "entryId": "cursor-bottom-2103755742665244481",
+                  "sortIndex": "2103755742665244481"
+                }
+              ],
+              "type": "TimelineAddEntries"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

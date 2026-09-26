@@ -1,0 +1,20 @@
+[project]
+name = "xscout-probe"
+version = "0.0.0"
+description = "Phase 0 live-verification probes for xscout (reference and fixture source only)"
+requires-python = ">=3.12"
+dependencies = [
+    "curl_cffi",
+    "beautifulsoup4",
+    "fastapi",
+    "uvicorn",
+    "sqlalchemy[asyncio]",
+    "asyncpg",
+    "alembic",
+    "cryptography",
+    "pydantic-settings",
+    "pyyaml",
+]
+
+[tool.uv]
+package = false

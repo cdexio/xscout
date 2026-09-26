@@ -15,6 +15,7 @@ dist/
 build/
 
 # Local runtime data
+tools/probe/out/
 logs/
 samples/
 *.db
