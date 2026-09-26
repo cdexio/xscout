@@ -248,6 +248,9 @@ and are calibrated from real header data during phases 0 and 6.
 1. Own generator (vendored from XClientTransaction / twscrape, MIT, with
    attribution), one instance per account, built from pages fetched through
    that account's session. Cached; rebuilt every few hours or on failure.
+   Page order: `x.com/home`, then the responsive-web app shell
+   `x.com/i/jf/` (added 2026-09-26 after the upstream watch reported that
+   logged-out `/home` now redirects to the x-web build).
 2. Precomputed key pairs from `fa0311/x-client-transaction-id-pair-dict`.
 3. No-TID mode with the alternative bearer token; health reports it as
    `degraded`.

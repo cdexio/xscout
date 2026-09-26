@@ -14,7 +14,7 @@ implemented, following its plan. Design:
 | 3 | [Pool + gateway](phase-3-pool-gateway.md) — **built 2026-09-26**, see [report](phase-3-report.md) | 2 | pool/budget tests pass; live load spreads evenly over all accounts |
 | 4 | [HTTP API (on-demand)](phase-4-http-api.md) — **built 2026-09-26**, see [report](phase-4-report.md) | 3 | bots can call it; 503 with retry_after works |
 | 5 | [Watchlist + feed](phase-5-watchlist-feed.md) — **built 2026-09-26**, see [report](phase-5-report.md) | 4 | tier-1 KOL tweets reach the feed within interval + 1 min |
-| 6 | [Canary + resilience](phase-6-canary-resilience.md) | 5 | 24 h soak, no locked account; canary detects a simulated break |
+| 6 | [Canary + resilience](phase-6-canary-resilience.md) — **code built 2026-09-26**, 24 h soak pending accounts, see [report](phase-6-report.md) | 5 | 24 h soak, no locked account; canary detects a simulated break |
 | 7 | [Consumer integration](phase-7-consumer-integration.md) | 6 | submitted separately for owner approval |
 
 Each phase ends with a short report to the owner

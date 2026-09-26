@@ -210,6 +210,16 @@ class ResponseSample(Base):
     )
 
 
+class KvState(Base):
+    __tablename__ = "kv_state"
+
+    key: Mapped[str] = mapped_column(Text, primary_key=True)
+    value: Mapped[dict] = mapped_column(JSONB, nullable=False)
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False
+    )
+
+
 class RequestLog(Base):
     __tablename__ = "request_log"
 

@@ -277,7 +277,14 @@ class TidProvider:
     def invalidate(self, account_id: int) -> None:
         self._gens.pop(account_id, None)
 
-    async def get(self, account_id: int, page: Callable[[], Awaitable[str]], fetch: FetchText) -> TidGenerator | None:
+    async def get(
+        self,
+        account_id: int,
+        page: Callable[[], Awaitable[str]] | list[Callable[[], Awaitable[str]]],
+        fetch: FetchText,
+    ) -> TidGenerator | None:
+        """`page` may be a list of page loaders; they are tried in order until one yields a generator."""
+        pages = page if isinstance(page, list) else [page]
         now = self._clock()
         cached = self._gens.get(account_id)
         if cached and now - cached.built_at < self.rebuild_sec:
@@ -289,15 +296,21 @@ class TidProvider:
                 return cached.gen
             # After a failed build, wait a few minutes before retrying the generator.
             if now - self._failed_at.get(account_id, 0) > 300:
-                try:
-                    gen = await TidGenerator.from_page(await page(), fetch)
+                errors = []
+                for load in pages:
+                    try:
+                        gen = await TidGenerator.from_page(await load(), fetch)
+                    except Exception as e:
+                        errors.append(str(e))
+                        continue
                     self._gens[account_id] = _Cached(gen, now)
                     self._failed_at.pop(account_id, None)
+                    if errors:
+                        log.info("tid generator built from a fallback page", extra={"fields": {"errors": errors}})
                     return gen
-                except Exception as e:
-                    self._failed_at[account_id] = now
-                    self.last_error = f"generator: {e}"
-                    log.warning("tid generator failed", extra={"fields": {"error": str(e)}})
+                self._failed_at[account_id] = now
+                self.last_error = f"generator: {'; '.join(errors)}"
+                log.warning("tid generator failed", extra={"fields": {"errors": errors}})
         return await self._pair_gen()
 
     async def _pair_gen(self) -> TidGenerator | None:

@@ -119,6 +119,7 @@ class Gateway:
         self.clock = clock
         self.sleep = sleep
         self.stats: dict[str, int] = {}
+        self.last_verdict: dict[str, tuple[str, str, float]] = {}  # operation -> (kind, reason, time)
 
     def _count(self, key: str) -> None:
         self.stats[key] = self.stats.get(key, 0) + 1
@@ -252,6 +253,7 @@ class Gateway:
             await self._apply(lease, outcome, verdict)
             self._log(lease, consumer, priority, outcome, verdict, verdict.kind.value)
             self._count(f"verdict_{verdict.kind.value}")
+            self.last_verdict[op] = (verdict.kind.value, verdict.reason, self.clock())
             if verdict.success:
                 return outcome.parsed, attempts
             if verdict.kind is Kind.CALLER_ERROR:

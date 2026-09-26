@@ -95,6 +95,21 @@ Etiquette that keeps everyone under the limits:
 - Keep `limit` small (20 = one X request).
 - Back off for `retry_after_sec` after a `503`.
 
+## Operations
+
+| Command | Purpose |
+|---|---|
+| `uv run xscout canary` | Run the known-answer probes once (the service runs them every 10 min; states in `/health`) |
+| `uv run xscout upstream [--days 30]` | New commits in twscrape, XClientTransaction, Nitter, x-client-transaction-id touching TID, queryId/features or parsers since the last check (set `XSCOUT_GITHUB_TOKEN` for a higher GitHub limit) |
+| `uv run xscout samples list` / `samples promote <id> <name>` | Raw X responses stored on parse problems or null-rate spikes; promote one to `tests/fixtures/x/<name>.json` |
+| `uv run xscout retention` | Prune rows past retention now (the service does it every 6 h) |
+| `uv run xscout soak --minutes 1440 --rpm 20` | Load shaped like the three bots against a running service; report in `logs/soak-*.json` |
+
+When `/health` shows a canary component `broken`, the service has already
+rediscovered query ids and rebuilt TIDs once. If it stays broken: run
+`xscout upstream`, look at `xscout samples list`, fix the parser or the TID
+code, promote the sample to a fixture and add a test.
+
 ## Developer commands
 
 `uv run xscout x search '$BTC'`, `x search solana --tab people`,

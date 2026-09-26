@@ -98,6 +98,31 @@ async def test_provider_caches_generator_and_rebuilds_after_interval(monkeypatch
     assert p.layer_for(5) == "none"
 
 
+async def test_provider_tries_fallback_page_before_pair_dict(monkeypatch):
+    seen: list[str] = []
+
+    async def fake_from_page(html, fetch):
+        seen.append(html)
+        if html == "home":
+            raise RuntimeError("x-web build, no ondemand chunk")
+        return TidGenerator(VK, ANIM, "generator")
+
+    monkeypatch.setattr(TidGenerator, "from_page", staticmethod(fake_from_page))
+
+    async def home():
+        return "home"
+
+    async def shell():
+        return "shell"
+
+    async def no_pairs():
+        raise AssertionError("pair-dict must not be needed")
+
+    p = TidProvider(clock=Clock(), pair_fetcher=no_pairs)
+    gen = await p.get(9, [home, shell], fetch_nothing)
+    assert gen.layer == "generator" and seen == ["home", "shell"] and p.layer_for(9) == "generator"
+
+
 @pytest.mark.parametrize("frames", [[10.0] * 7 + [100.0, 50.0, 200.0, 25.0]])
 def test_anim_key_is_deterministic(frames):
     from xscout.xweb.tid import anim_key

@@ -7,6 +7,10 @@ from typing import Literal
 
 GQL_URL = "https://x.com/i/api/graphql"
 HOME_URL = "https://x.com/home"
+# Responsive-web app shell. Upstream (Lqm1/x-client-transaction-id 2f1f95b, 2026-09-25) moved to it after
+# logged-out /home started redirecting to the x-web build; both served TID inputs to our session on 2026-09-26.
+APP_SHELL_URL = "https://x.com/i/jf/"
+TID_PAGES = (HOME_URL, APP_SHELL_URL)
 
 # Public web-client bearer tokens (same values in twscrape, twikit and Nitter). "alt" is the
 # second token Nitter uses; phase 0 measured separate limit buckets for it.

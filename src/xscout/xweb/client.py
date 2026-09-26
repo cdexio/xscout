@@ -7,12 +7,13 @@ Self-healing done here because it is wire-level: error 336 -> add features and r
 from __future__ import annotations
 
 import logging
+import time
 from collections.abc import Awaitable, Callable
 from dataclasses import dataclass
 from typing import Any
 
 from xscout.transport.session import AccountTransport, RawResponse
-from xscout.xweb.constants import HOME_URL, Bucket
+from xscout.xweb.constants import TID_PAGES, Bucket
 from xscout.xweb.errors import Inspected, inspect
 from xscout.xweb.ops import OpCall
 from xscout.xweb.pages import fetch_page, fetch_text
@@ -21,6 +22,9 @@ from xscout.xweb.requests import build_request
 from xscout.xweb.tid import TidProvider
 
 log = logging.getLogger("xscout.client")
+
+NULL_SPIKE_MIN_ITEMS = 5  # judge null rates only on pages with at least this many items
+NULL_SPIKE_SAMPLE_EVERY_SEC = 600
 
 SampleSink = Callable[..., Awaitable[Any]]
 
@@ -53,13 +57,14 @@ class AccountClient:
         self.registry = registry
         self.tids = tids
         self.samples = samples
+        self._last_spike_sample: dict[str, float] = {}
 
     async def _tid(self, bucket: Bucket):
         if not bucket.sends_tid:
             return None, "none"
         gen = await self.tids.get(
             self.transport.account_id,
-            page=lambda: fetch_page(self.transport, HOME_URL),
+            page=[lambda url=url: fetch_page(self.transport, url) for url in TID_PAGES],
             fetch=lambda url: fetch_text(self.transport, url),
         )
         return gen, gen.layer if gen else "none"
@@ -95,8 +100,16 @@ class AccountClient:
             except Exception as e:  # parsers are tolerant; this is a real schema break
                 parse_error = f"{type(e).__name__}: {e}"
         stats = getattr(parsed, "stats", None)
+        reason = None
         if parse_error or (stats is not None and stats.failed):
             reason = parse_error or f"{stats.failed} entries failed: {stats.errors[:3]}"
+        elif stats is not None and stats.parsed >= NULL_SPIKE_MIN_ITEMS:
+            spiking = {f: round(stats.null_rate(f), 2) for f in stats.key_field_nulls if stats.null_rate(f) >= 0.5}
+            last = self._last_spike_sample.get(call.operation, float("-inf"))
+            if spiking and time.monotonic() - last > NULL_SPIKE_SAMPLE_EVERY_SEC:
+                self._last_spike_sample[call.operation] = time.monotonic()
+                reason = f"null-rate spike: {spiking}"
+        if reason:
             log.warning("parse problem", extra={"fields": {"operation": call.operation, "reason": reason}})
             if self.samples is not None:
                 await self.samples(

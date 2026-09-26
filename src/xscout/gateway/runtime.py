@@ -15,6 +15,7 @@ from datetime import UTC, datetime
 
 from xscout.api.watch import WatchService
 from xscout.cache.cache import ResultCache
+from xscout.canary.canary import Canary
 from xscout.config import Settings
 from xscout.crypto import SecretBox
 from xscout.gateway.gateway import Gateway
@@ -23,6 +24,7 @@ from xscout.pool.pool import AccountPool, AccountState
 from xscout.scheduler.scheduler import FeedSignal, WatchScheduler
 from xscout.store.accounts import AccountCredentials, AccountRepository
 from xscout.store.db import make_engine, make_sessionmaker
+from xscout.store.maintenance import KvRepository, RetentionRepository
 from xscout.store.models import AccountStatus
 from xscout.store.operations import OperationRepository
 from xscout.store.rate_state import RateStateRepository
@@ -39,6 +41,9 @@ from xscout.xweb.tid import TidProvider
 log = logging.getLogger("xscout.runtime")
 
 ACCOUNT_SYNC_SEC = 60.0
+RETENTION_EVERY_SEC = 6 * 3600.0
+RETENTION_FIRST_AFTER_SEC = 300.0
+CANARY_FIRST_AFTER_SEC = 30.0
 CORE_OPS = ("SearchTimeline", "UserByScreenName", "UserTweets")
 
 
@@ -78,6 +83,9 @@ class Runtime:
         self.scheduler = WatchScheduler(
             self.gateway, self.watches, self.feed, self.tweets.upsert, self.t, self.feed_signal, clock
         )
+        self.kv = KvRepository(self.sessions)
+        self.retention = RetentionRepository(self.sessions)
+        self.canary = Canary(self.gateway, self.heal, history=self.kv, clock=clock)
         self.watch_service = WatchService(
             self.watches,
             self.feed,
@@ -107,6 +115,10 @@ class Runtime:
             ]
             if scheduler:
                 self._tasks.append(asyncio.create_task(self.scheduler.run_forever()))
+                canary = self._loop(self.run_canary, self.t.intervals.canary_sec, first_after=CANARY_FIRST_AFTER_SEC)
+                self._tasks.append(asyncio.create_task(canary))
+                retention = self._loop(self.run_retention, RETENTION_EVERY_SEC, first_after=RETENTION_FIRST_AFTER_SEC)
+                self._tasks.append(asyncio.create_task(retention))
         counts = {"accounts": len(self.pool.accounts), "clients": len(self.clients)}
         log.info("runtime started", extra={"fields": counts})
 
@@ -125,9 +137,11 @@ class Runtime:
         self.clients.clear()
         await self.engine.dispose()
 
-    async def _loop(self, fn, every: float) -> None:
+    async def _loop(self, fn, every: float, first_after: float | None = None) -> None:
+        delay = every if first_after is None else first_after
         while True:
-            await asyncio.sleep(every)
+            await asyncio.sleep(delay)
+            delay = every
             try:
                 await fn()
             except Exception as e:  # a failing loop must not kill the service
@@ -148,6 +162,9 @@ class Runtime:
             problems.append("registry: using hardcoded fallback query ids")
         if self.tids.last_error:
             problems.append(f"tid: {self.tids.last_error}")
+        for op, st in self.canary.state.items():
+            if st.status in ("broken", "degraded"):
+                problems.append(f"canary {op}: {st.status} ({st.reason})")
         status = "down" if not usable else "degraded" if problems else "ok"
         return {
             "status": status,
@@ -163,6 +180,7 @@ class Runtime:
             "cache": self.cache.stats(),
             "gateway": dict(self.gateway.stats),
             "scheduler": {**self.scheduler.stats, "units": len(self.scheduler.units)},
+            "canary": self.canary.report(),
         }
 
     def accounts_report(self) -> list[dict]:
@@ -256,6 +274,26 @@ class Runtime:
         changed = await self.registry.refresh(lambda url: fetch_text(client.transport, url))
         if changed:
             self.tids.invalidate(client.transport.account_id)
+
+    async def heal(self, broken: list[str]) -> None:
+        """Canary saw broken operations: rediscover query ids and features now and rebuild every TID."""
+        self._last_registry_refresh = 0.0
+        if self.clients:
+            await self.refresh_registry(next(iter(self.clients)))
+        for account_id in list(self.clients):
+            self.tids.invalidate(account_id)
+        log.warning("healed after canary", extra={"fields": {"broken": broken, "registry": self.registry.last_error}})
+
+    async def run_canary(self) -> dict:
+        if not self.clients:
+            return self.canary.report()
+        return await self.canary.run_once()
+
+    async def run_retention(self) -> dict[str, int]:
+        removed = await self.retention.prune(self.t.retention)
+        if any(removed.values()):
+            log.info("retention pruned rows", extra={"fields": removed})
+        return removed
 
     async def _scheduled_refresh(self) -> None:
         if self.clients:

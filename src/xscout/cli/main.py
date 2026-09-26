@@ -211,10 +211,12 @@ def openapi(out: str) -> None:
 
 
 def _register_dev_commands() -> None:
+    from xscout.cli.ops import canary_cmd, retention_cmd, samples, upstream_cmd
+    from xscout.cli.soak import soak_cmd
     from xscout.cli.xdev import pool_cmd, x
 
-    cli.add_command(x)
-    cli.add_command(pool_cmd)
+    for command in (x, pool_cmd, canary_cmd, upstream_cmd, retention_cmd, samples, soak_cmd):
+        cli.add_command(command)
 
 
 _register_dev_commands()
