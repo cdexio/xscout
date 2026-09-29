@@ -34,8 +34,8 @@ PROFILES = [
 KOLS = """
     elonmusk saylor VitalikButerin cz_binance WatcherGuru whale_alert DeItaone tier10k APompliano CoinDesk
     Cointelegraph BitcoinMagazine unusual_whales zerohedge KobeissiLetter lookonchain EmberCN ai_9684xtpa
-    MustStopMurad blknoiz06 notthreadguy cobie HsakaTrades CryptoCapo_ rektcapital PeterLBrandt CarlRunefelt
-    TheRoaringKitty jimcramer Reuters
+    MustStopMurad blknoiz06 notthreadguy cobie HsakaTrades CryptoCapo_ rektcapital PeterLBrandt TheRoaringKitty
+    jimcramer Reuters
 """.split()  # noqa: SIM905
 
 
