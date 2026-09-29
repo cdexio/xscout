@@ -11,6 +11,7 @@ import asyncio
 import contextlib
 import json
 import random
+import signal
 import statistics
 import time
 from collections import Counter, defaultdict
@@ -192,13 +193,18 @@ class Soak:
         self.out.write_text(json.dumps(report, indent=2, default=str) + "\n")
 
     async def run(self, minutes: float) -> None:
+        # Ctrl-C / systemctl stop only set a flag, so the loop ends normally and cleanup always runs.
+        stop = asyncio.Event()
+        loop = asyncio.get_running_loop()
+        for sig in (signal.SIGINT, signal.SIGTERM):
+            loop.add_signal_handler(sig, stop.set)
         deadline = time.monotonic() + minutes * 60
         async with AsyncSession() as s:
             await self.setup_watchlist(s)
             tasks: set[asyncio.Task] = set()
             next_snapshot = next_write = time.monotonic()
             try:
-                while time.monotonic() < deadline:
+                while time.monotonic() < deadline and not stop.is_set():
                     task = asyncio.create_task(self.one_request(s))
                     tasks.add(task)
                     task.add_done_callback(tasks.discard)
@@ -209,13 +215,18 @@ class Soak:
                     if now >= next_write:
                         await self.write(final=False)
                         next_write = now + 300
-                    await asyncio.sleep(random.expovariate(self.rpm / 60.0))
+                    with contextlib.suppress(TimeoutError):
+                        await asyncio.wait_for(stop.wait(), random.expovariate(self.rpm / 60.0))
+                if stop.is_set():
+                    click.echo("# stop requested; cleaning up", err=True)
                 if tasks:
                     await asyncio.gather(*tasks, return_exceptions=True)
             finally:
                 await self.cleanup(s)
                 await self.snapshot(s)
                 await self.write(final=True)
+                for sig in (signal.SIGINT, signal.SIGTERM):
+                    loop.remove_signal_handler(sig)
 
 
 @click.command("soak")
@@ -229,8 +240,5 @@ def soak_cmd(minutes: float, rpm: float, watch_share: float, base: str | None) -
     base = base or f"http://{settings.host}:{settings.port}"
     out = PROJECT_DIR / "logs" / f"soak-{datetime.now(UTC):%Y%m%dT%H%M%SZ}.json"
     click.echo(f"# soak {minutes} min at {rpm} rpm against {base}; report: {out}", err=True)
-    try:
-        asyncio.run(Soak(base, rpm, watch_share, out).run(minutes))
-    except KeyboardInterrupt:
-        click.echo("# interrupted; partial report written", err=True)
+    asyncio.run(Soak(base, rpm, watch_share, out).run(minutes))
     click.echo(str(out))
