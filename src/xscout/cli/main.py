@@ -170,6 +170,33 @@ def accounts_overflow(username: str, state: str) -> None:
     _print_view(_run(lambda repo: repo.set_overflow(username, state == "on")))
 
 
+@accounts.command("export")
+@click.argument("path", type=click.Path(dir_okay=False))
+def accounts_export(path: str) -> None:
+    """Write all accounts, still encrypted, to PATH (mode 600) for moving to another machine."""
+    from pathlib import Path
+
+    data = _run(lambda repo: repo.export_rows())
+    target = Path(path)
+    target.write_text(json.dumps(data, indent=2) + "\n")
+    target.chmod(0o600)
+    click.echo(f"exported {len(data['accounts'])} accounts (ciphertext only) to {target}")
+
+
+@accounts.command("import")
+@click.argument("path", type=click.Path(exists=True, dir_okay=False))
+@click.option("--replace", is_flag=True, help="Overwrite accounts that already exist here.")
+@click.option("--disabled", is_flag=True, help="Import every account as disabled (enable them one by one).")
+def accounts_import(path: str, replace: bool, disabled: bool) -> None:
+    """Import an export made with the same XSCOUT_SECRET_KEY."""
+    from pathlib import Path
+
+    data = json.loads(Path(path).read_text())
+    status = AccountStatus.DISABLED if disabled else None
+    result = _run(lambda repo: repo.import_rows(data, replace=replace, status=status))
+    click.echo(json.dumps(result, indent=2))
+
+
 @accounts.command("remove")
 @click.argument("username")
 @click.confirmation_option(prompt="Remove this account and its stored cookies?")

@@ -39,13 +39,35 @@ unlock; `expired` → add fresh cookies with `accounts add <user> --replace`;
 ## Running
 
 ```bash
-uv run xscout serve                    # foreground, 127.0.0.1:8790
-pm2 start ecosystem.config.cjs         # background; pm2 logs xscout
-curl -s localhost:8790/health | jq
+uv run xscout serve                    # foreground, 127.0.0.1:8791
+curl -s localhost:8791/health | jq
 ```
 
 `/health` → `status` is `ok`, `degraded` (with `problems`) or `down` (no
 usable account).
+
+## Deploy (production VPS)
+
+Production runs on the SG VPS (`root@46.250.236.190`, key `~/.ssh/vps-contabo`), next to the bots:
+code in `/opt/xscout` (git clone, root-owned, read-only for the service), virtualenv in
+`/var/lib/xscout/venv`, service user `xscout`, systemd unit `xscout.service` on `127.0.0.1:8791`,
+Postgres 16 on port 5433 through peer authentication (no database password).
+
+Updates: commit locally, then `deploy/deploy.sh` (push, pull, `uv sync`, migrate, restart, health).
+On the VPS, `xscout <command>` (wrapper in `/usr/local/bin`) runs the CLI as the service user, e.g.
+`xscout accounts list`, `xscout canary`, `journalctl -u xscout -f` for logs.
+
+First-time setup, done once (2026-09-29):
+
+1. `useradd --system --home-dir /var/lib/xscout --create-home --shell /usr/sbin/nologin xscout`;
+   `/usr/local/bin/uv` copied from `/root/.local/bin/uv`.
+2. `createuser -p 5433 xscout` and `createdb -p 5433 -O xscout xscout` as `postgres`.
+3. `/opt/xscout/.env` (root:xscout, 640) with
+   `XSCOUT_DATABASE_URL=postgresql+asyncpg://xscout@/xscout?host=/var/run/postgresql&port=5433`,
+   `XSCOUT_PORT=8791` and the same `XSCOUT_SECRET_KEY` as the machine the accounts come from.
+4. Accounts move encrypted: `xscout accounts export accounts.json` on the old machine, copy the
+   file, `xscout accounts import accounts.json --disabled` on the new one, check one account with
+   `xscout accounts enable <user>` + `xscout canary`, then enable the rest.
 
 ## API for the bots
 

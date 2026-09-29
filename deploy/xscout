@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# /usr/local/bin/xscout on the VPS: run the xscout CLI as the service user with the service's environment.
+# Examples: xscout accounts list | xscout canary | xscout upstream | xscout soak --minutes 1440 --rpm 20
+set -euo pipefail
+cd /opt/xscout
+exec sudo -u xscout -H /var/lib/xscout/venv/bin/xscout "$@"

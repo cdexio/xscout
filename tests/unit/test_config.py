@@ -61,4 +61,4 @@ def test_settings_require_async_driver_and_key(monkeypatch):
         Settings(_env_file=None)
     monkeypatch.setenv("XSCOUT_SECRET_KEY", KEY)
     s = Settings(_env_file=None)
-    assert s.host == "127.0.0.1" and s.port == 8790
+    assert s.host == "127.0.0.1" and s.port == 8791

@@ -235,6 +235,65 @@ class AccountRepository:
             if cooling_until is not None:
                 acc.cooling_until = cooling_until
 
+    # MARK: moving accounts between machines (ciphertext only)
+
+    KEY_CHECK = "xscout-key-check"
+
+    async def export_rows(self) -> dict:
+        """Accounts as stored (encrypted) plus a token that proves which key encrypted them."""
+        async with self._sessions() as s:
+            rows = (await s.scalars(select(Account).order_by(Account.username))).all()
+            return {
+                "format": "xscout-accounts/1",
+                "key_check": self._box.encrypt(self.KEY_CHECK),
+                "accounts": [
+                    {
+                        "username": a.username,
+                        "auth_token_enc": a.auth_token_enc,
+                        "ct0_enc": a.ct0_enc,
+                        "proxy_enc": a.proxy_enc,
+                        "impersonate": a.impersonate,
+                        "allow_overflow": a.allow_overflow,
+                        "status": a.status,
+                        "status_reason": a.status_reason,
+                    }
+                    for a in rows
+                ],
+            }
+
+    async def import_rows(
+        self, data: dict, replace: bool = False, status: AccountStatus | None = None
+    ) -> dict[str, list[str]]:
+        """Insert exported accounts. Refuses when this machine's key cannot decrypt them."""
+        if data.get("format") != "xscout-accounts/1":
+            raise AccountError("not an xscout accounts export")
+        if self._box.decrypt(data["key_check"]) != self.KEY_CHECK:
+            raise AccountError("export was made with a different XSCOUT_SECRET_KEY")
+        result: dict[str, list[str]] = {"added": [], "replaced": [], "skipped": []}
+        async with self._sessions.begin() as s:
+            for row in data["accounts"]:
+                name = normalize_username(row["username"])
+                for field in ("auth_token_enc", "ct0_enc", "proxy_enc"):
+                    if row.get(field):
+                        self._box.decrypt(row[field])  # fail loudly on a corrupted value, print nothing
+                acc = await s.scalar(select(Account).where(Account.username == name))
+                if acc is not None and not replace:
+                    result["skipped"].append(name)
+                    continue
+                result["replaced" if acc is not None else "added"].append(name)
+                acc = acc or Account(username=name)
+                acc.auth_token_enc = row["auth_token_enc"]
+                acc.ct0_enc = row["ct0_enc"]
+                acc.proxy_enc = row.get("proxy_enc")
+                acc.impersonate = row["impersonate"]
+                acc.allow_overflow = bool(row.get("allow_overflow", True))
+                acc.status = status or row.get("status") or AccountStatus.ACTIVE
+                acc.status_reason = "imported" if status is None else f"imported as {status}"
+                acc.status_changed_at = datetime.now(UTC)
+                acc.cooling_until = None
+                s.add(acc)
+        return result
+
     async def remove(self, username: str) -> bool:
         name = normalize_username(username)
         async with self._sessions.begin() as s:

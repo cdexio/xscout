@@ -148,7 +148,7 @@ class Settings(BaseSettings):
     database_url: str
     secret_key: SecretStr
     host: str = "127.0.0.1"
-    port: int = 8790
+    port: int = 8791  # 8790 is taken by cdexio-futures-api on the production VPS
     config_file: Path = PROJECT_DIR / "config" / "xscout.yaml"
     log_level: str = "INFO"
 

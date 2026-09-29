@@ -1,0 +1,24 @@
+# /etc/systemd/system/xscout.service — installed by deploy/deploy.sh
+[Unit]
+Description=xscout — X search service for the trading bots (127.0.0.1:8791)
+After=network-online.target postgresql.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=xscout
+Group=xscout
+WorkingDirectory=/opt/xscout
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/var/lib/xscout/venv/bin/xscout serve
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/var/lib/xscout /opt/xscout/logs
+
+[Install]
+WantedBy=multi-user.target
