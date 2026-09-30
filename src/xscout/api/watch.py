@@ -7,6 +7,7 @@ from collections.abc import Callable
 from typing import Any
 
 from xscout.config import Tunables
+from xscout.scheduler.filters import WatchFilter
 from xscout.scheduler.scheduler import FeedSignal
 from xscout.scheduler.units import WatchValueError, WatchView, build_units, normalize, projected_requests
 from xscout.store.watch import FeedRepository, WatchRepository
@@ -70,12 +71,27 @@ class WatchService:
 
     # MARK: use cases
 
+    def _filters_for(self, tags: list[str], spec: WatchFilter | None) -> dict[str, dict] | None:
+        """One filter for every tag of the request (the tags are the caller's view of the item)."""
+        if spec is None or spec.is_noop():
+            return None
+        if not tags:
+            raise WatchValueError("filters need at least one tag to attach to")
+        return {t: spec.model_dump() for t in tags}
+
     async def create(
-        self, kind: str, value: str, interval_sec: int, tags: list[str], consumer: str
+        self,
+        kind: str,
+        value: str,
+        interval_sec: int,
+        tags: list[str],
+        consumer: str,
+        filters: WatchFilter | None = None,
     ) -> tuple[dict, bool]:
         norm = normalize(kind, value, self.t.watch.max_query_chars)
         interval = self._interval(interval_sec)
         clean_tags = self._tags(tags)
+        tag_filters = self._filters_for(clean_tags, filters)
         views = await self.watches.enabled_views()
         existing = next((v for v in views if v.kind == kind and v.value == norm), None)
         if existing is not None:
@@ -83,15 +99,26 @@ class WatchService:
         else:
             views.append(WatchView(id=-1, kind=kind, value=norm, interval_sec=interval, tags=clean_tags))
         await self._check(views)
-        item, created = await self.watches.upsert(kind, norm, interval, clean_tags, consumer)
+        item, created = await self.watches.upsert(kind, norm, interval, clean_tags, consumer, tag_filters)
         self.on_change()
         return item, created
 
     async def patch(
-        self, item_id: int, interval_sec: int | None, tags: list[str] | None, enabled: bool | None
+        self,
+        item_id: int,
+        interval_sec: int | None,
+        tags: list[str] | None,
+        enabled: bool | None,
+        filters: dict[str, WatchFilter | None] | None = None,
     ) -> dict | None:
         interval = self._interval(interval_sec) if interval_sec is not None else None
         clean_tags = self._tags(tags) if tags is not None else None
+        tag_filters = None
+        if filters is not None:
+            tag_filters = {}
+            for tag, spec in filters.items():
+                key = self._tags([tag])[0]
+                tag_filters[key] = None if spec is None or spec.is_noop() else spec.model_dump()
         if interval is not None or enabled:
             views = await self.watches.all_views()
             for v in views:
@@ -99,7 +126,7 @@ class WatchService:
                     v.interval_sec = interval or v.interval_sec
                     v.enabled = True if enabled else v.enabled
             await self._check([v for v in views if v.enabled])
-        item = await self.watches.patch(item_id, interval, clean_tags, enabled)
+        item = await self.watches.patch(item_id, interval, clean_tags, enabled, tag_filters)
         self.on_change()
         return item
 

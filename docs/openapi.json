@@ -1031,6 +1031,17 @@
             "type": "array",
             "maxItems": 20,
             "title": "Tags"
+          },
+          "filters": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/WatchFilter"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "applied to this request's tags only"
           }
         },
         "type": "object",
@@ -1040,6 +1051,40 @@
           "interval_sec"
         ],
         "title": "WatchCreate"
+      },
+      "WatchFilter": {
+        "properties": {
+          "exclude_replies": {
+            "type": "boolean",
+            "title": "Exclude Replies",
+            "default": false
+          },
+          "exclude_retweets": {
+            "type": "boolean",
+            "title": "Exclude Retweets",
+            "default": false
+          },
+          "require_cashtag": {
+            "type": "boolean",
+            "title": "Require Cashtag",
+            "default": false
+          },
+          "require_contract": {
+            "type": "boolean",
+            "title": "Require Contract",
+            "default": false
+          },
+          "keywords": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 30,
+            "title": "Keywords"
+          }
+        },
+        "type": "object",
+        "title": "WatchFilter"
       },
       "WatchPatch": {
         "properties": {
@@ -1079,6 +1124,28 @@
               }
             ],
             "title": "Enabled"
+          },
+          "filters": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/WatchFilter"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Filters",
+            "description": "tag -> filter; null clears"
           }
         },
         "type": "object",

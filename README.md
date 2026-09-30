@@ -104,6 +104,12 @@ poll serves every bot, and bots read new tweets from the local feed.
 | `DELETE /v1/watchlist/{id}` | Remove your interest; the item is deleted when no bot uses it |
 | `GET /v1/feed?tags=a,b&since=<seq>&limit=&wait_sec=` | New watched tweets after `since`, oldest first, with `next_since`; `wait_sec` (≤ 30) long-polls |
 
+Filters: add `"filters": {"exclude_replies", "exclude_retweets", "require_cashtag",
+"require_contract", "keywords": [...]}` to a `POST` to keep only useful posts for your tags. The
+filter belongs to the tags of that request, so two bots can watch the same profile with different
+filters; a tweet reaches the feed only with the tags whose filter it passes. Filters run after the
+poll, so they cost no X requests. `PATCH` takes `"filters": {"<tag>": {...} | null}`.
+
 Feed pattern: keep the last `next_since`, call
 `/v1/feed?tags=<yours>&since=<it>&wait_sec=30` in a loop. Each entry has
 `seq`, `tags`, `watch_item_id` and the normalized `tweet`. On the first poll of

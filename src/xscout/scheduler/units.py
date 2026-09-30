@@ -32,6 +32,7 @@ class WatchView:
     next_run_at: datetime | None = None
     last_seen_tweet_id: int | None = None
     created_at: datetime | None = None
+    filters: dict[str, dict] = field(default_factory=dict)  # tag -> WatchFilter fields
 
 
 @dataclass

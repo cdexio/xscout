@@ -204,7 +204,8 @@ class MemWatches(FakeWatches):
     async def all_views(self):
         return list(self.views)
 
-    async def upsert(self, kind, value, interval, tags, consumer):
+    async def upsert(self, kind, value, interval, tags, consumer, filters=None):
+        self.last_filters = filters
         for v in self.views:
             if (v.kind, v.value) == (kind, value):
                 v.interval_sec = min(v.interval_sec, interval)

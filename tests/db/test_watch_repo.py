@@ -20,6 +20,17 @@ async def test_upsert_merges_and_detach_deletes_last(sessions):
     assert await repo.get(a["id"]) is None
 
 
+async def test_filters_merge_per_tag_and_clear(sessions):
+    repo = WatchRepository(sessions)
+    a, _ = await repo.upsert("user", "ansem", 60, ["zetryn"], "zetryn", {"zetryn": {"require_contract": True}})
+    b, _ = await repo.upsert("user", "ansem", 60, ["cdexio"], "cdexio", {"cdexio": {"exclude_replies": True}})
+    assert b["filters"] == {"zetryn": {"require_contract": True}, "cdexio": {"exclude_replies": True}}
+    c = await repo.patch(a["id"], None, None, None, {"cdexio": None, "zetryn": {"keywords": ["pump"]}})
+    assert c["filters"] == {"zetryn": {"keywords": ["pump"]}}
+    [view] = await repo.enabled_views()
+    assert view.filters == {"zetryn": {"keywords": ["pump"]}}
+
+
 async def test_patch_and_runs(sessions):
     repo = WatchRepository(sessions)
     item, _ = await repo.upsert("query", "$BTC", 60, [], "c")

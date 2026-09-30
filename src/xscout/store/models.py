@@ -157,6 +157,7 @@ class WatchItem(Base):
     interval_sec: Mapped[int] = mapped_column(Integer, nullable=False)
     tags: Mapped[list[str]] = mapped_column(ARRAY(Text), nullable=False, default=list)
     consumers: Mapped[list[str]] = mapped_column(ARRAY(Text), nullable=False, default=list)
+    filters: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict)  # tag -> WatchFilter
     enabled: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
     next_run_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), index=True)
     last_run_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))

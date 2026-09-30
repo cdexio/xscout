@@ -25,6 +25,7 @@ def _view(row: WatchItem) -> WatchView:
         next_run_at=row.next_run_at,
         last_seen_tweet_id=row.last_seen_tweet_id,
         created_at=row.created_at,
+        filters=dict(row.filters or {}),
     )
 
 
@@ -36,6 +37,7 @@ def item_json(row: WatchItem) -> dict[str, Any]:
         "interval_sec": row.interval_sec,
         "tags": list(row.tags or []),
         "consumers": list(row.consumers or []),
+        "filters": dict(row.filters or {}),
         "enabled": row.enabled,
         "next_run_at": row.next_run_at.isoformat() if row.next_run_at else None,
         "last_run_at": row.last_run_at.isoformat() if row.last_run_at else None,
@@ -59,9 +61,18 @@ class WatchRepository:
         self._sessions = sessions
 
     async def upsert(
-        self, kind: str, value: str, interval_sec: int, tags: list[str], consumer: str
+        self,
+        kind: str,
+        value: str,
+        interval_sec: int,
+        tags: list[str],
+        consumer: str,
+        filters: dict[str, dict] | None = None,
     ) -> tuple[dict[str, Any], bool]:
-        """Create, or merge into the existing item for (kind, value): shortest interval, union of tags/consumers."""
+        """Create, or merge into the existing item for (kind, value): shortest interval, union of tags/consumers.
+
+        `filters` (tag -> filter) replaces the filter of those tags only; other tags keep theirs.
+        """
         async with self._sessions.begin() as s:
             row = await s.scalar(select(WatchItem).where(WatchItem.kind == kind, WatchItem.value == value))
             created = row is None
@@ -72,6 +83,7 @@ class WatchRepository:
                     interval_sec=interval_sec,
                     tags=sorted(set(tags)),
                     consumers=[consumer],
+                    filters=dict(filters or {}),
                     enabled=True,
                 )
                 s.add(row)
@@ -79,6 +91,8 @@ class WatchRepository:
                 row.interval_sec = min(row.interval_sec, interval_sec)
                 row.tags = sorted(set(row.tags or []) | set(tags))
                 row.consumers = sorted(set(row.consumers or []) | {consumer})
+                if filters:
+                    row.filters = {**(row.filters or {}), **filters}
                 row.enabled = True
             await s.flush()
             await s.refresh(row)
@@ -99,8 +113,14 @@ class WatchRepository:
             return item_json(row) if row else None
 
     async def patch(
-        self, item_id: int, interval_sec: int | None, tags: list[str] | None, enabled: bool | None
+        self,
+        item_id: int,
+        interval_sec: int | None,
+        tags: list[str] | None,
+        enabled: bool | None,
+        filters: dict[str, dict | None] | None = None,
     ) -> dict[str, Any] | None:
+        """`filters`: tag -> filter to set, or tag -> None to clear that tag's filter."""
         async with self._sessions.begin() as s:
             row = await s.get(WatchItem, item_id)
             if row is None:
@@ -111,6 +131,14 @@ class WatchRepository:
                 row.tags = sorted(set(tags))
             if enabled is not None:
                 row.enabled = enabled
+            if filters is not None:
+                merged = dict(row.filters or {})
+                for tag, spec in filters.items():
+                    if spec is None:
+                        merged.pop(tag, None)
+                    else:
+                        merged[tag] = spec
+                row.filters = merged
             await s.flush()
             await s.refresh(row)
             return item_json(row)

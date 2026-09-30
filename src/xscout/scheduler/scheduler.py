@@ -17,6 +17,7 @@ from typing import Any
 from xscout.config import Tunables
 from xscout.gateway.gateway import BadRequest, Gateway, Unavailable
 from xscout.pool.budget import Priority
+from xscout.scheduler.filters import passing_tags
 from xscout.scheduler.units import Unit, WatchView, build_units
 from xscout.store.watch import FeedRepository, NewEntry, RunUpdate, WatchRepository
 from xscout.xweb import ops
@@ -186,9 +187,10 @@ class WatchScheduler:
             log.info("poll hit the page cap; older tweets may be skipped", extra={"fields": {"unit": unit.key}})
         return sorted(tweets.values(), key=lambda t: t.id), list(includes.values()), pages
 
-    def _select(self, unit: Unit, tweets: list[Tweet]) -> list[tuple[Tweet, WatchView]]:
+    def _select(self, unit: Unit, tweets: list[Tweet]) -> list[tuple[Tweet, WatchView, list[str]]]:
+        """New tweets per item, with the item's tags whose filter they pass (items without tags: no filter)."""
         by_user = {i.value: i for i in unit.items} if unit.kind == "user" else {}
-        out: list[tuple[Tweet, WatchView]] = []
+        out: list[tuple[Tweet, WatchView, list[str]]] = []
         for t in tweets:
             if unit.kind == "user":
                 name = (t.author.username or "").lower() if t.author else ""
@@ -204,17 +206,23 @@ class WatchScheduler:
                 since = (item.created_at or self._now()) - timedelta(seconds=item.interval_sec)
                 if t.created_at is None or t.created_at < since:
                     continue
-            out.append((t, item))
+            tags = passing_tags(t, item.tags, item.filters)
+            if item.tags and not tags:
+                self.stats["filtered"] = self.stats.get("filtered", 0) + 1
+                continue
+            out.append((t, item, tags))
         return out
 
-    async def _emit(self, tweets: list[Tweet], includes: list[Tweet], entries: list[tuple[Tweet, WatchView]]) -> int:
+    async def _emit(
+        self, tweets: list[Tweet], includes: list[Tweet], entries: list[tuple[Tweet, WatchView, list[str]]]
+    ) -> int:
         if self.archive is not None and (tweets or includes):
             try:
                 await self.archive(tweets + includes, [])
             except Exception as e:
                 log.warning("archive failed", extra={"fields": {"error": str(e)}})
         written = await self.feed.append(
-            [NewEntry(t.id, item.id, item.tags, t.model_dump(mode="json")) for t, item in entries]
+            [NewEntry(t.id, item.id, tags, t.model_dump(mode="json")) for t, item, tags in entries]
         )
         if written:
             self.stats["entries"] += written

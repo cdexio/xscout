@@ -17,6 +17,7 @@ from xscout import __version__
 from xscout.api.service import NotFound, XService
 from xscout.api.watch import OverCapacity, WatchService
 from xscout.gateway.gateway import BadRequest, Unavailable
+from xscout.scheduler.filters import WatchFilter
 from xscout.scheduler.units import WatchValueError
 from xscout.xweb.ops import MAX_QUERY_CHARS, QueryTooLong
 
@@ -42,12 +43,14 @@ class WatchCreate(BaseModel):
     value: str = Field(min_length=1, max_length=600)
     interval_sec: int
     tags: list[str] = Field(default_factory=list, max_length=20)
+    filters: WatchFilter | None = Field(default=None, description="applied to this request's tags only")
 
 
 class WatchPatch(BaseModel):
     interval_sec: int | None = None
     tags: list[str] | None = Field(default=None, max_length=20)
     enabled: bool | None = None
+    filters: dict[str, WatchFilter | None] | None = Field(default=None, description="tag -> filter; null clears")
 
 
 class ApiError(Exception):
@@ -197,7 +200,9 @@ def create_app(open_backend: Callable[[], AbstractAsyncContextManager[Backend]])
 
     @app.post("/v1/watchlist", tags=["watchlist"], status_code=201)
     async def watch_create(b: Svc, who: Consumer, body: WatchCreate) -> JSONResponse:
-        item, created = await watch_of(b).create(body.kind, body.value, body.interval_sec, body.tags, who)
+        item, created = await watch_of(b).create(
+            body.kind, body.value, body.interval_sec, body.tags, who, filters=body.filters
+        )
         return JSONResponse({"data": item, "created": created}, status_code=201 if created else 200)
 
     @app.get("/v1/watchlist", tags=["watchlist"])
@@ -222,7 +227,7 @@ def create_app(open_backend: Callable[[], AbstractAsyncContextManager[Backend]])
 
     @app.patch("/v1/watchlist/{item_id}", tags=["watchlist"])
     async def watch_patch(b: Svc, who: Consumer, item_id: int, body: WatchPatch) -> dict:
-        item = await watch_of(b).patch(item_id, body.interval_sec, body.tags, body.enabled)
+        item = await watch_of(b).patch(item_id, body.interval_sec, body.tags, body.enabled, filters=body.filters)
         if item is None:
             raise NotFound(f"watch item {item_id} not found")
         return {"data": item}
