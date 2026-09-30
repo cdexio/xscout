@@ -23,6 +23,7 @@ class WatchFilter(BaseModel):
     exclude_retweets: bool = False
     require_cashtag: bool = False
     require_contract: bool = False  # a Solana or EVM address in the text or a link
+    require_token: bool = False  # a cashtag OR a contract address (how memecoin posts name a token)
     keywords: list[str] = Field(default_factory=list, max_length=30)  # any match, case-insensitive
 
     @field_validator("keywords")
@@ -62,9 +63,12 @@ def passes(tweet: Tweet, spec: WatchFilter | None) -> bool:
         return False
     text = tweet.text or ""
     haystack = " ".join([text, *tweet.urls])
-    if spec.require_cashtag and not (tweet.cashtags or CASHTAG_RE.search(text)):
+    cashtag = bool(tweet.cashtags or CASHTAG_RE.search(text))
+    if spec.require_cashtag and not cashtag:
         return False
     if spec.require_contract and not has_contract(haystack):
+        return False
+    if spec.require_token and not (cashtag or has_contract(haystack)):
         return False
     if spec.keywords:
         lowered = haystack.lower()

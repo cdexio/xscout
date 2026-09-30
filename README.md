@@ -105,7 +105,7 @@ poll serves every bot, and bots read new tweets from the local feed.
 | `GET /v1/feed?tags=a,b&since=<seq>&limit=&wait_sec=` | New watched tweets after `since`, oldest first, with `next_since`; `wait_sec` (≤ 30) long-polls |
 
 Filters: add `"filters": {"exclude_replies", "exclude_retweets", "require_cashtag",
-"require_contract", "keywords": [...]}` to a `POST` to keep only useful posts for your tags. The
+"require_contract", "require_token" (cashtag or contract), "keywords": [...]}` to a `POST` to keep only useful posts for your tags. The
 filter belongs to the tags of that request, so two bots can watch the same profile with different
 filters; a tweet reaches the feed only with the tags whose filter it passes. Filters run after the
 poll, so they cost no X requests. `PATCH` takes `"filters": {"<tag>": {...} | null}`.

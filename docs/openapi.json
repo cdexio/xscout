@@ -1074,6 +1074,11 @@
             "title": "Require Contract",
             "default": false
           },
+          "require_token": {
+            "type": "boolean",
+            "title": "Require Token",
+            "default": false
+          },
           "keywords": {
             "items": {
               "type": "string"
