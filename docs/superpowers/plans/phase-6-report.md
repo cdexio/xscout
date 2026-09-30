@@ -50,12 +50,47 @@
   throughout, 33 watch items created and removed. One 503 and 5 postponed
   watch polls, p95 up to 8 s: the single-account gap limit from phase 3.
 
-## Pending (needs the owner's accounts)
+## 24 h soak (2026-09-29 12:39 → 2026-09-30 12:39 UTC, production VPS)
 
-- 24 h soak with 6–10 accounts: `uv run xscout serve` (or pm2), then
-  `uv run xscout soak --minutes 1440 --rpm 20`. From the report: per-account
-  spread, 503 rate, cache ratio, p50/p95, canary timeline, any lock; then
-  calibrate reserve, gap, P0/P1 shares, TTLs and decide whether the overflow
-  buckets stay on. Also observe a live KOL post reaching the feed
-  (phase 5 open item) and whether several accounts on one IP hit a per-IP
-  limit (spec §2 open item).
+Setup: 6 accounts, SG VPS (one datacenter IP), `xscout soak --minutes 1440 --rpm 20`, watchlist of
+29 KOLs + 3 queries (45 requests per 15 min projected). Accounts were moved from the laptop
+encrypted; the VPS IP passed discovery, TID and search with one account before all were enabled.
+A 32-minute laptop run before the move gave the same picture (568 requests, 0×503, 53–55 X
+requests per account).
+
+| Metric | Result |
+|---|---|
+| On-demand requests (3 consumers) | 28,709, **all 200**, 0×503, 0 stale |
+| Cache ratio | zetryn 46% (max_age 60 s), cdexio 84% (300 s), stocks 86% (600 s); 68% of on-demand calls never reached X |
+| Latency seen by bots (uncached) | p50 0.76–0.90 s, p95 1.34–1.52 s |
+| X requests | 14,924: P0 9,089, P1 watchlist 4,214, P2 canary 396 |
+| Outcomes | 14,923 ok, 1 network error; **no 429, no code 88, no Cloudflare, no 404/336** |
+| Spread over accounts | 2,450–2,506 per account (±1.1%) |
+| Buckets used | POST/main 13,184, GET/main 1,740; overflow (alt bearer) **never needed** |
+| Peak per account per 15 min | SearchTimeline 27 of 187 (14%), UserByScreenName 6 of 150, UserTweets 1 of 50 |
+| Peak from the one IP per 15 min | 175 (avg 154) |
+| Watchlist | 4,421 polls, 18,273 feed entries, 0 errors |
+| Canary | `ok` for 24 h (only the initial unknown → ok transitions); 0 response samples |
+| Accounts | all 6 `active` throughout; no status change |
+| Resources | service ~100 MB RSS; DB 53 MB (tweets 34 MB for 41,231 tweets/day ≈ 3 GB at 90-day retention; 97 GB free) |
+
+Answers to the open items:
+
+- **Live KOL post to feed** (phase 5): confirmed; e.g. `@whale_alert` in 9–16 s,
+  `@notthreadguy` 37 s during the laptop run; 18,273 watch entries on the VPS.
+- **Per-IP limit** (spec §2): none observed up to 175 X requests per 15 min (≈ 14,900 per day)
+  from one IP with 6 accounts. A limit above that volume stays possible.
+- **Overflow buckets**: never triggered; at this load primary buckets use ≤ 14% of their quota.
+
+## Calibration
+
+The load used a small part of the capacity, so the data supports keeping the safety margins
+rather than loosening them:
+
+- Gap 2–4 s, reserve `max(5, 10%)`, cache TTLs: **keep** (no strain, no 503, no 429).
+- P0/P1 shares: P0 made 2.2× the requests of P1, and P0 cannot borrow unused P1. Proposal:
+  **P0 0.6 / P1 0.4** (P1 still ~1,000 requests per 15 min, 23× the soak watchlist).
+- Overflow buckets: **keep enabled** as a safety valve; they only activate when primary buckets
+  are exhausted, which did not happen.
+- Capacity for the bots: 6 accounts give ~1,280 primary search requests per 15 min; zetryn's
+  measured need was ~180 (its phase 6 report), so about 7× headroom before overflow.
