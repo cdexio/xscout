@@ -19,8 +19,8 @@ cooldowns:
   unknown_error_sec: 900
 
 budget:
-  p0_share: 0.4             # on-demand bot requests
-  p1_share: 0.6             # watchlist; may borrow unused P0
+  p0_share: 0.6             # on-demand bot requests
+  p1_share: 0.4             # watchlist; may borrow unused P0
 
 buckets:
   order:

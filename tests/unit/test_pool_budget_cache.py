@@ -181,7 +181,7 @@ def test_p1_borrows_unused_p0_but_p2_leaves_it_free():
         if b2.admit(op, Priority.P2, 100 - p2).admitted:
             b2.record(op, Priority.P2, "canary")
             p2 += 1
-    assert p2 == 60
+    assert p2 == 40  # P0's unused share (60 of 100) stays free
 
 
 def test_budget_window_expires():

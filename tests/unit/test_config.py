@@ -11,7 +11,7 @@ PG = "postgresql+asyncpg://u:p@localhost:5432/xscout"
 
 def test_defaults_match_spec():
     t = Tunables()
-    assert t.budget.p0_share == 0.4 and t.budget.p1_share == 0.6
+    assert t.budget.p0_share == 0.6 and t.budget.p1_share == 0.4
     assert t.buckets.order["SearchTimeline"][0] == "POST/main"
     assert t.buckets.overflow == ["POST/alt", "GET/alt"]
     assert t.buckets.limit_defaults["SearchTimeline"]["POST/main"] == 187

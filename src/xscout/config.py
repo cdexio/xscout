@@ -40,8 +40,9 @@ class CooldownTunables(BaseModel):
 
 
 class BudgetTunables(BaseModel):
-    p0_share: float = Field(0.4, ge=0, le=1)
-    p1_share: float = Field(0.6, ge=0, le=1)
+    # 60/40 since the 2026-09-30 soak: on-demand made 2.2x the watchlist's requests and cannot borrow P1.
+    p0_share: float = Field(0.6, ge=0, le=1)
+    p1_share: float = Field(0.4, ge=0, le=1)
 
     @model_validator(mode="after")
     def _shares_sum(self) -> BudgetTunables:

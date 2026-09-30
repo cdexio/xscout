@@ -235,7 +235,7 @@ async def test_create_merges_and_validates():
 
 
 async def test_capacity_is_enforced():
-    svc, _ = service(capacity=100)  # P1 share: 60 requests per 15 min
+    svc, _ = service(capacity=150)  # P1 share (0.4): 60 requests per 15 min
     await svc.create("query", "$BTC", 30, [], "c")  # 30 per window
     await svc.create("query", "$ETH", 30, [], "c")  # 60: exactly at capacity, still allowed
     with pytest.raises(OverCapacity) as e:
