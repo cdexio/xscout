@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# xscout watchdog (installed as /usr/local/bin/xscout-watchdog, run every minute by
+# xscout-watchdog.timer). systemd only restarts a process that exits; on 2026-10-07 xscout stayed
+# alive but answered nothing for 50 minutes. This restarts it after FAILS_TO_RESTART failed
+# /health checks in a row, and logs every failure and restart to the journal.
+set -uo pipefail
+
+URL="${XSCOUT_HEALTH_URL:-http://127.0.0.1:8791/health}"
+TIMEOUT_SEC="${XSCOUT_HEALTH_TIMEOUT_SEC:-15}"
+FAILS_TO_RESTART="${XSCOUT_FAILS_TO_RESTART:-3}"
+STATE=/run/xscout-watchdog.fails
+
+# A restart in progress (or a stopped service) is not a hang.
+if ! systemctl is-active --quiet xscout; then
+  echo 0 >"$STATE"
+  exit 0
+fi
+
+if curl -sf -m "$TIMEOUT_SEC" -o /dev/null "$URL"; then
+  echo 0 >"$STATE"
+  exit 0
+fi
+
+fails=$(( $(cat "$STATE" 2>/dev/null || echo 0) + 1 ))
+echo "$fails" >"$STATE"
+echo "xscout health check failed (${fails}/${FAILS_TO_RESTART}, timeout ${TIMEOUT_SEC}s)"
+if (( fails >= FAILS_TO_RESTART )); then
+  echo "restarting xscout after ${fails} failed health checks"
+  echo 0 >"$STATE"
+  systemctl restart xscout
+fi

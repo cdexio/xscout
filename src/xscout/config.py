@@ -78,6 +78,9 @@ class CacheTunables(BaseModel):
         default_factory=lambda: {"SearchTimeline": 60, "UserByScreenName": 3600, "UserTweets": 120}
     )
     default_ttl_sec: int = 60
+    # Entries older than this are never served (not even stale on a 503) and are dropped every
+    # minute, so memory stays bounded (the 2026-10-07 VPS hang).
+    stale_max_sec: int = Field(3600, ge=60)
 
 
 class GatewayTunables(BaseModel):
@@ -88,7 +91,7 @@ class GatewayTunables(BaseModel):
     transient_cooldown_sec: int = 30  # 5xx / load shed on one bucket
     tid_missing_cooldown_sec: int = 300  # bucket needs a TID and none is available
     registry_refresh_min_interval_sec: int = 600  # after 404s
-    cache_max_entries: int = 5000
+    cache_max_entries: int = 1500
     state_flush_sec: float = 5.0
 
 

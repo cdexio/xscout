@@ -218,6 +218,23 @@ def test_cache_ttl_max_age_stale_and_lru():
     assert c.get_stale("a") is None  # evicted
 
 
+def test_cache_drops_entries_past_the_stale_limit():
+    clock = Clock()
+    c = ResultCache(clock, max_entries=100, stale_max_sec=3600, prune_every_sec=60)
+    c.put("old", 1, ttl_sec=60)
+    clock.t += 3000
+    c.put("mid", 2, ttl_sec=60)
+    clock.t += 601  # "old" is now 3601 s old, "mid" 601 s
+    assert c.get_stale("old") is None and c.get_stale("mid").value == 2  # never served past the limit
+    c.put("new", 3, ttl_sec=60)  # the minute has passed: this put prunes
+    assert c.stats()["entries"] == 2 and c.stats()["pruned"] == 1
+    clock.t += 10
+    c.put("again", 4, ttl_sec=60)  # within the minute: no prune pass
+    assert c.stats()["pruned"] == 1
+    clock.t += 3601
+    assert c.prune() == 3 and c.stats()["entries"] == 0
+
+
 async def test_coalescing_runs_producer_once():
     c = ResultCache(Clock())
     calls = 0

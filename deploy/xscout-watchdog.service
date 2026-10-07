@@ -1,0 +1,8 @@
+# /etc/systemd/system/xscout-watchdog.service — installed by deploy/deploy.sh
+[Unit]
+Description=xscout watchdog — restart xscout when /health stops answering
+After=xscout.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/xscout-watchdog

@@ -1,0 +1,11 @@
+# /etc/systemd/system/xscout-watchdog.timer — installed by deploy/deploy.sh
+[Unit]
+Description=xscout watchdog every minute
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=1min
+AccuracySec=10s
+
+[Install]
+WantedBy=timers.target

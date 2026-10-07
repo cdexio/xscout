@@ -9,6 +9,7 @@ from __future__ import annotations
 import asyncio
 import contextlib
 import logging
+import os
 import time
 from collections.abc import Callable
 from datetime import UTC, datetime
@@ -51,6 +52,16 @@ def _cred_key(c: AccountCredentials) -> tuple:
     return (c.auth_token, c.proxy, c.impersonate)
 
 
+def rss_mb() -> float | None:
+    """Resident memory of this process (Linux /proc), for /health and the watchdog's log."""
+    try:
+        with open("/proc/self/statm") as f:
+            pages = int(f.read().split()[1])
+    except OSError, ValueError, IndexError:
+        return None
+    return round(pages * os.sysconf("SC_PAGE_SIZE") / 1_048_576, 1)
+
+
 class Runtime:
     def __init__(self, settings: Settings, clock: Callable[[], float] = time.time):
         self.settings = settings
@@ -67,7 +78,7 @@ class Runtime:
         self.tids = TidProvider(rebuild_sec=self.t.intervals.tid_rebuild_sec, clock=clock)
         self.pool = AccountPool(self.t.pool, self.t.buckets, clock)
         self.budget = Budget(self.t.budget, clock)
-        self.cache = ResultCache(clock, self.t.gateway.cache_max_entries)
+        self.cache = ResultCache(clock, self.t.gateway.cache_max_entries, self.t.cache.stale_max_sec)
         self.clients: dict[int, AccountClient] = {}
         self._cred_keys: dict[int, tuple] = {}
         self._persisted_ct0: dict[int, str] = {}
@@ -178,6 +189,7 @@ class Runtime:
             "tid_layers": sorted(tid_layers),
             "capacity": {op: self.pool.capacity(op) for op in CORE_OPS},
             "cache": self.cache.stats(),
+            "rss_mb": rss_mb(),
             "gateway": dict(self.gateway.stats),
             "scheduler": {**self.scheduler.stats, "units": len(self.scheduler.units)},
             "canary": self.canary.report(),

@@ -11,9 +11,14 @@ Group=xscout
 WorkingDirectory=/opt/xscout
 Environment=PYTHONUNBUFFERED=1
 ExecStart=/var/lib/xscout/venv/bin/xscout serve
-Restart=on-failure
+Restart=always
 RestartSec=5
 TimeoutStopSec=30
+# 2026-10-07: the service grew to ~1.4 GB, was swapped out while builds ran on the shared VPS and
+# stopped answering. Above MemoryHigh the kernel reclaims it first; at MemoryMax it is killed and
+# restarted (Restart=always) instead of dragging the other bots' services down with it.
+MemoryHigh=700M
+MemoryMax=1G
 NoNewPrivileges=true
 ProtectSystem=strict
 ProtectHome=true

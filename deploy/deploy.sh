@@ -23,9 +23,15 @@ sudo -u xscout -H env UV_PROJECT_ENVIRONMENT=/var/lib/xscout/venv \
   /usr/local/bin/uv sync --frozen --no-dev --python 3.14
 sudo -u xscout -H /var/lib/xscout/venv/bin/alembic upgrade head
 install -m 644 deploy/xscout.service /etc/systemd/system/xscout.service
+install -m 644 deploy/xscout-watchdog.service /etc/systemd/system/xscout-watchdog.service
+install -m 644 deploy/xscout-watchdog.timer /etc/systemd/system/xscout-watchdog.timer
 install -m 755 deploy/xscout /usr/local/bin/xscout
+install -m 755 deploy/xscout-watchdog /usr/local/bin/xscout-watchdog
 systemctl daemon-reload
+# Start on boot (it was installed but never enabled until 2026-10-07), and watch /health.
+systemctl enable xscout xscout-watchdog.timer
 systemctl restart xscout
+systemctl restart xscout-watchdog.timer
 for i in $(seq 1 30); do
   curl -sf http://127.0.0.1:8791/health >/dev/null && break
   sleep 1

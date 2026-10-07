@@ -36,6 +36,7 @@ cache:
     UserByScreenName: 3600
     UserTweets: 120
   default_ttl_sec: 60
+  stale_max_sec: 3600           # never served or kept past this (bounded memory, 2026-10-07)
 
 gateway:
   max_attempts: 3           # accounts tried per page before giving up
@@ -45,7 +46,7 @@ gateway:
   transient_cooldown_sec: 30
   tid_missing_cooldown_sec: 300
   registry_refresh_min_interval_sec: 600
-  cache_max_entries: 5000
+  cache_max_entries: 1500
   state_flush_sec: 5.0
 
 api:
